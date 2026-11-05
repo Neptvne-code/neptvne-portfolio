@@ -1,0 +1,197 @@
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEPTVNE — Veronica Basile</title>
+<style>
+@font-face{font-family:"Orbitron";src:url(assets/fonts/Orbitron.ttf) format("truetype");font-weight:400 900;font-display:block}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+canvas{display:block}
+#t{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;font-family:"Orbitron",sans-serif;font-weight:700;color:#fff;
+font-size:clamp(34px,6.4vw,96px);letter-spacing:.2em;padding-left:.2em;white-space:nowrap;opacity:0;pointer-events:none;
+text-shadow:0 0 18px rgba(150,200,255,.8),0 0 55px rgba(60,120,230,.55)}
+#cr{position:fixed;right:10px;bottom:6px;font:10px/1.3 sans-serif;color:#666;text-align:right}
+
+@font-face{font-family:"Michroma";src:url(assets/fonts/Michroma.ttf) format("truetype")}
+@font-face{font-family:"Exo 2";src:url(assets/fonts/Exo2.ttf) format("truetype");font-weight:100 900}
+#skip{position:fixed;right:22px;top:20px;z-index:20;font:600 12px "Exo 2",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#cfe0ff;background:rgba(20,30,60,.35);
+ border:1px solid rgba(140,180,255,.35);border-radius:30px;padding:9px 18px;cursor:pointer;backdrop-filter:blur(6px);transition:.3s}
+#skip:hover{background:rgba(60,100,200,.35)}#skip.gone{opacity:0;pointer-events:none}
+#nodes{position:fixed;inset:0;pointer-events:none;z-index:5;transition:opacity .5s}
+.mlab{position:absolute;transform:translateX(-50%);text-align:center;cursor:pointer;opacity:0;transition:opacity .6s}
+.mlab .hit{position:absolute;left:50%;transform:translateX(-50%);border-radius:50%}
+.mlab b{display:block;font:400 13px "Michroma",sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#fff;text-shadow:0 0 10px #000,0 0 18px color-mix(in srgb,var(--c) 60%,transparent)}
+.mlab small{display:block;margin-top:5px;font:400 11px "Exo 2",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--c);text-shadow:0 0 8px #000}
+.mlab:hover b{text-shadow:0 0 12px var(--c)}
+.sat{position:absolute;transform:translate(-50%,-50%);cursor:pointer;opacity:0}
+.sat i{display:block;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px var(--c);transition:.3s}
+.sat span{position:absolute;left:12px;top:50%;transform:translateY(-50%);font:500 11px "Exo 2",sans-serif;letter-spacing:.12em;color:#fff;white-space:nowrap;opacity:0;transition:.3s;text-shadow:0 0 6px #000,0 0 12px #000}
+.sat:hover span,.sat.big span{opacity:1}.sat.big i{width:11px;height:11px}.sat.big span{font-size:13px;left:18px}
+.sat:hover i{transform:scale(1.6)}
+#top{position:fixed;left:24px;top:22px;z-index:20;display:flex;gap:22px;opacity:0;transition:opacity 1s;pointer-events:none}
+body.menu #top{opacity:1;pointer-events:auto}
+#top a{font:500 12px "Exo 2",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#b9ccef;text-decoration:none}#top a:hover{color:#fff}
+#panel.small .box{width:min(560px,90vw)}
+.kick{font:500 12px "Exo 2";letter-spacing:.2em;text-transform:uppercase;margin:26px 0 0}
+#panel .kick+h2{margin-top:10px}
+.proj{display:grid;grid-template-columns:1.4fr 1fr;gap:28px}@media(max-width:700px){.proj{grid-template-columns:1fr}}
+.prev{border-radius:14px;border:1px dashed rgba(140,180,255,.3);background:linear-gradient(135deg,rgba(60,100,200,.18),rgba(120,80,200,.1));min-height:260px;display:flex;align-items:center;justify-content:center;color:#8ea3c9;font-size:14px;letter-spacing:.1em}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gal img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;border-radius:10px;cursor:zoom-in;border:1px solid rgba(140,180,255,.2);transition:.3s}
+.gal img:first-child{grid-column:1/-1;aspect-ratio:16/9}.gal img:hover{border-color:rgba(160,200,255,.7);transform:translateY(-2px)}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}.btn{font:600 12px "Exo 2";letter-spacing:.14em;text-transform:uppercase;color:#05070f;background:#cfe0ff;border-radius:30px;padding:10px 16px;text-decoration:none}
+.btn.ghost{background:none;color:#cfe0ff;border:1px solid rgba(140,180,255,.4)}.btn:hover{filter:brightness(1.15)}
+#lb{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center}#lb.on{display:flex}
+#lb img{max-width:90vw;max-height:88vh;border-radius:8px;box-shadow:0 20px 60px #000}#lb button{position:absolute;background:none;border:0;color:#fff;font-size:42px;cursor:pointer;opacity:.8}
+#lb .x{top:14px;right:24px}#lb .pv{left:20px;top:50%}#lb .nx{right:20px;top:50%}
+.meta p{line-height:1.6}
+.meta h3{font:400 11px "Michroma";letter-spacing:.18em;color:#9fb6e6;text-transform:uppercase;margin:0 0 6px}.meta p{margin:0 0 20px;color:#d5def0;font-weight:300}
+#panel{position:fixed;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .6s}
+#panel.on{opacity:1;pointer-events:auto}
+#panel .box{width:min(1000px,90vw);max-height:84vh;overflow:auto;padding:44px 48px;border-radius:24px;background:rgba(10,16,34,.55);border:1px solid rgba(140,180,255,.22);
+ backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08);
+ transform:translateY(24px) scale(.97);transition:transform .6s cubic-bezier(.2,.7,.2,1);color:#d8e3f7;font-family:"Exo 2",sans-serif}
+#panel.on .box{transform:none}
+#back{font:600 12px "Exo 2",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#a9c4ff;background:none;border:1px solid rgba(140,180,255,.35);border-radius:30px;padding:8px 16px;cursor:pointer}
+#back:hover{background:rgba(80,120,220,.25)}
+#panel h2{font-family:"Michroma",sans-serif;font-weight:400;font-size:clamp(22px,3vw,34px);letter-spacing:.12em;color:#fff;margin:26px 0 8px;text-transform:uppercase}
+#panel .sub{color:#9fb2d6;font-weight:300;margin:0 0 30px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+.card{border-radius:16px;border:1px dashed rgba(140,180,255,.3);background:rgba(255,255,255,.03);padding:22px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end}
+.card .ph{flex:1;border-radius:10px;background:linear-gradient(135deg,rgba(60,100,200,.18),rgba(120,80,200,.10));margin-bottom:16px;min-height:90px}
+.card b{font-family:"Michroma";font-weight:400;font-size:13px;letter-spacing:.1em;color:#fff}.card small{color:#8ea3c9;margin-top:6px;font-size:13px}
+.bio{font-size:18px;line-height:1.7;font-weight:300;max-width:640px}
+</style></head><body>
+<button id="skip">Salta intro</button>
+<nav id="top"><a href="#" data-info="chi">Chi sono</a><a href="#" data-info="contatti">Contatti</a></nav>
+<div id="nodes"></div>
+<div id="panel"><div class="box"><button id="back">← Indietro</button><div id="pc"></div></div></div>
+<h1 id="t">NEPTVNE</h1>
+<div id="cr">Texture pianeti, Sole e Via Lattea: Solar System Scope (CC BY 4.0) · three.js (MIT) · Orbitron, Michroma, Exo 2 (OFL)</div>
+<script src="assets/three.min.js"></script><script src="assets/textures.js"></script>
+<script>
+const CAP=location.search.includes('capture');
+const R=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:CAP});R.setPixelRatio(Math.min(devicePixelRatio,2));R.setSize(innerWidth,innerHeight);
+R.outputColorSpace=THREE.SRGBColorSpace;document.body.prepend(R.domElement);
+const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,.1,200000);
+const L=new THREE.TextureLoader(),tx=n=>{const t=L.load(TEX[n]);t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t};
+// sky
+const sky=new THREE.Mesh(new THREE.SphereGeometry(150000,64,32),new THREE.MeshBasicMaterial({map:tx('stars_milky_way'),side:THREE.BackSide,color:0x888888}));S.add(sky);
+// glow sprite
+function glowTex(stops){const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d'),r=g.createRadialGradient(128,128,0,128,128,128);
+stops.forEach(s=>r.addColorStop(s[0],s[1]));g.fillStyle=r;g.fillRect(0,0,256,256);return new THREE.CanvasTexture(c)}
+const dot=glowTex([[0,'rgba(255,255,255,1)'],[.25,'rgba(255,255,255,.6)'],[1,'rgba(255,255,255,0)']]);
+// galaxy (procedural spiral, seen from afar)
+const G=new THREE.Vector3(-9000,-600,4000),N=220000,gp=new Float32Array(N*3),gc=new Float32Array(N*3);
+for(let i=0;i<N;i++){const core=Math.random()<.22;let r,a;
+ if(core){r=Math.pow(Math.random(),2)*2600;a=Math.random()*6.283}else{r=1500+Math.pow(Math.random(),.8)*13000;const arm=(i%2)*Math.PI;a=arm+Math.log(r/1500)*2.4+(Math.random()-.5)*1.1*Math.random()}
+ const sc=core?300:(300+r*.09)*Math.random();gp[i*3]=G.x+Math.cos(a)*r+(Math.random()-.5)*sc*2;gp[i*3+1]=G.y+(Math.random()-.5)*(core?700:220);gp[i*3+2]=G.z+Math.sin(a)*r+(Math.random()-.5)*sc*2;
+ const k=Math.min(1,r/9000);const col=new THREE.Color().setHSL(core?.09:(Math.random()<.07?.95:.6-.04*Math.random()),core?.75:.65,core?.7-.25*k:.45+.25*Math.random());gc.set([col.r,col.g,col.b],i*3)}
+const gg=new THREE.BufferGeometry();gg.setAttribute('position',new THREE.BufferAttribute(gp,3));gg.setAttribute('color',new THREE.BufferAttribute(gc,3));
+const gm=new THREE.PointsMaterial({size:45,map:dot,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:.55});
+const gal=new THREE.Points(gg,gm);S.add(gal);
+const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex([[0,'rgba(255,225,180,.9)'],[.2,'rgba(240,200,160,.35)'],[1,'rgba(0,0,0,0)']]),blending:THREE.AdditiveBlending,depthWrite:false}));
+halo.position.copy(G);halo.scale.set(9000,9000,1);S.add(halo);
+// sun
+const sun=new THREE.Mesh(new THREE.SphereGeometry(5,64,32),new THREE.MeshBasicMaterial({map:tx('sun')}));S.add(sun);
+const cor=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex([[0,'rgba(255,240,200,1)'],[.12,'rgba(255,200,90,.85)'],[.35,'rgba(255,140,40,.25)'],[1,'rgba(0,0,0,0)']]),blending:THREE.AdditiveBlending,depthWrite:false}));
+cor.scale.set(48,48,1);S.add(cor);
+S.add(new THREE.PointLight(0xfff4e8,4.2,0,0));const fill=new THREE.DirectionalLight(0x5a7fd0,.55);S.add(fill);S.add(fill.target);S.add(new THREE.AmbientLight(0x2a3a55,.35));
+// planets
+const P=[['mercury',.55,12,4.1],['venus_atmosphere',.95,16,1.6],['earth_daymap',1,21,1],['mars',.7,26,.53],['jupiter',2.9,37,.084],['saturn',2.4,49,.034],['uranus',1.6,60,.012],['neptune',1.6,71,.006]];
+const pl=P.map(([n,r,d,sp],i)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,64,32),new THREE.MeshStandardMaterial({map:tx(n),roughness:1,metalness:0}));
+ m.userData={d,sp:Math.pow(sp,.45)*.35,ph:i*2.1+.7};S.add(m);
+ const og=new THREE.BufferGeometry().setFromPoints(Array.from({length:257},(_,k)=>new THREE.Vector3(Math.cos(k/256*6.2832)*d,0,Math.sin(k/256*6.2832)*d)));
+ const o=new THREE.Line(og,new THREE.LineBasicMaterial({color:0x6688aa,transparent:true,opacity:.18}));S.add(o);m.userData.orb=o;
+ if(n==='saturn'){const rg=new THREE.RingGeometry(r*1.25,r*2.3,128),pos=rg.attributes.position,uv=rg.attributes.uv,v=new THREE.Vector3();
+  for(let k=0;k<pos.count;k++){v.fromBufferAttribute(pos,k);uv.setXY(k,(v.length()-r*1.25)/(r*1.05),.5)}
+  const ring=new THREE.Mesh(rg,new THREE.MeshStandardMaterial({map:tx('saturn_ring'),transparent:true,side:THREE.DoubleSide,roughness:1}));ring.rotation.x=-Math.PI/2+.47;m.add(ring)}
+ if(n==='uranus')m.rotation.z=1.7;if(n==='neptune')m.rotation.z=.49;return m});
+const nep=pl[7];
+// atmosphere rim for neptune
+nep.add(new THREE.Mesh(new THREE.SphereGeometry(1.6*1.035,64,32),new THREE.ShaderMaterial({transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.BackSide,
+ vertexShader:'varying vec3 vN;varying vec3 vW;void main(){vN=normalize(mat3(modelMatrix)*normal);vW=(modelMatrix*vec4(position,1.)).xyz;gl_Position=projectionMatrix*viewMatrix*vec4(vW,1.);}',
+ fragmentShader:'varying vec3 vN;varying vec3 vW;void main(){vec3 v=normalize(cameraPosition-vW);float f=pow(1.-abs(dot(v,vN)),2.5);float l=clamp(dot(vN,normalize(-vW))*.8+.4,0.,1.);gl_FragColor=vec4(.35,.6,1.,1.)*f*l*1.4;}'})));
+// animation
+const ss=x=>x<=0?0:x>=1?1:x*x*x*(x*(x*6-15)+10),lerp=(a,b,t)=>a+(b-a)*t,V=THREE.Vector3;
+const T0=performance.now(),txt=document.getElementById('t');let simT=0;
+function pose(t){ // returns [pos,target]
+ const a=ss((t-1)/3.6),dist=Math.exp(lerp(Math.log(52000),Math.log(170),a));
+ const tg=new V().lerpVectors(G,new V(0,0,0),ss((t-1)/3));
+ const yaw=.6+t*.12,el=lerp(1.25,.42,a);
+ const p1=new V(Math.cos(yaw)*Math.cos(el),Math.sin(el),Math.sin(yaw)*Math.cos(el)).multiplyScalar(dist).add(tg);
+ const b=ss((t-5.2)/3.3);if(b<=0)return[p1,tg];
+ const np=nep.position.clone(),out=np.clone().normalize(),tan=new V(-out.z,0,out.x);
+ const sd=out.clone().negate(),th=window.__th||2.3;const p2=np.clone().add(sd.clone().multiplyScalar(Math.cos(th)*8.5)).add(tan.clone().multiplyScalar(Math.sin(th)*8.5)).add(new V(0,1.2,0));
+ const t2=np.clone().add(sd.clone().multiplyScalar(window.__off||2.6));
+ return[new V().lerpVectors(p1,p2,b),new V().lerpVectors(tg,t2,ss((t-5.2)/2.6))]}
+function frame(t){
+ pl.forEach(m=>{const u=m.userData,ang=u.ph+t*u.sp;m.position.set(Math.cos(ang)*u.d,0,Math.sin(ang)*u.d);m.rotation.y=t*.25});sun.rotation.y=t*.03;
+ let [p,tg]=pose(t);[p,tg]=nav(t,p,tg);C.position.copy(p);C.lookAt(tg);fill.position.copy(p);fill.target.position.copy(focus?focus.mesh.position:nep.position);fill.intensity=lerp(.55,1.1,fA);
+ const cd=p.length();gm.opacity=.55*Math.min(1,Math.max(0,(cd-900)/4000));halo.material.opacity=gm.opacity;gal.visible=gm.opacity>0;
+ sky.material.color.setScalar(lerp(.35,.8,ss((t-2)/3)));
+ const os=ss((t-2.2)/1.5)*(1-.6*ss((t-6)/2));pl.forEach(m=>m.userData.orb.material.opacity=.2*os);
+ const to=ss((t-8.6)/1.4);txt.style.opacity=to;
+ if(to>0){C.updateMatrixWorld();const s=nep.position.clone().project(C);txt.style.left=(s.x*.5+.5)*100+'%';txt.style.top=(-s.y*.5+.5)*100+'%'}
+ C.updateMatrixWorld();labels(t);R.render(S,C)}
+
+// ---- navigazione: lune e satelliti ----
+const MOONS=[
+ {id:'tritone',name:'Tritone',cat:'Branding e social',r:.42,d:2.9,sp:.07,ph:2.3,tint:0xf0ddd4,c:'#ffb3d9',sat:['Venusia','Lixor','Kinetix','Podcast','Demon King']},
+ {id:'proteo',name:'Proteo',cat:'Siti web',r:.32,d:3.5,sp:.055,ph:.3,tint:0x9a948c,c:'#7fd8ff',sat:['Tecnobici Home','Tema Shopify','Bozza Apple']},
+ {id:'nereide',name:'Nereide',cat:'App e gestionali',r:.27,d:3.9,sp:.045,ph:4.1,tint:0xc9c9c9,c:'#8ff0cc',sat:['Gestionale Tecnobici','Iconic Closet']},
+ {id:'larissa',name:'Larissa',cat:'Lead e CRM',r:.22,d:3.2,sp:.065,ph:5.4,tint:0xa8998a,c:'#ffd88a',sat:['App invio lead','Pagine prenotazione']}];
+const NW=document.getElementById('nodes'),PN=document.getElementById('panel'),PC=document.getElementById('pc');
+const mt=tx('mercury');
+MOONS.forEach((m,i)=>{
+ m.mesh=new THREE.Mesh(new THREE.SphereGeometry(m.r,48,24),new THREE.MeshStandardMaterial({map:mt,color:m.tint,roughness:1,metalness:0,emissive:m.tint,emissiveMap:mt,emissiveIntensity:.12}));m.mesh.rotation.y=i*1.7;S.add(m.mesh);m.mesh.visible=false;
+ const l=document.createElement('div');l.className='mlab';l.innerHTML='<div class="hit"></div><b>'+m.name+'</b><small>'+m.cat+'</small>';l.style.setProperty('--c',m.c);
+ l.onclick=e=>{e.stopPropagation();focusMoon(m)};NW.appendChild(l);m.lab=l;m.hit=l.querySelector('.hit');
+ m.sats=m.sat.map((n,j)=>{const d=document.createElement('div');d.className='sat';d.style.setProperty('--c',m.c);d.innerHTML='<i></i><span>'+n+'</span>';
+  d.onclick=e=>{e.stopPropagation();if(focus!==m)focusMoon(m);openProj(m,n)};NW.appendChild(d);return d})});
+let focus=null,fA=0,lastT=0,panelOpen=false;const fAm=new Map(MOONS.map(m=>[m,0]));
+function focusMoon(m){focus=m;closePanel(true);document.body.classList.add('zoom')}
+function unfocus(){focus=null;document.body.classList.remove('zoom')}
+function openPanel(html,small){PC.innerHTML=html;PN.classList.toggle('small',!!small);PN.classList.add('on');panelOpen=true;NW.style.opacity=.15}
+function closePanel(q){PN.classList.remove('on');panelOpen=false;NW.style.opacity=1}
+const PROJ={"Venusia": {"slug": "venusia", "ruolo": "Branding, piano social, contenuti", "str": "Identità visiva, mockup app, Instagram", "d": "Concept e identità per Venusia, un'app di incontri basata sul cielo e sull'astrologia: loghi, icona, schermate dell'app e landing per la lista d'attesa. Include un piano social di pre-lancio di 3 mesi su Instagram, TikTok e Pinterest e i primi post del mese 1, pronti ma non ancora pubblicati.", "pdf": [["Piano social 3 mesi", "Venusia_piano_social_3_mesi.pdf"], ["Concept grafico", "Venusia_concept_grafico.pdf"]], "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg", "06.jpg"]}, "Lixor": {"slug": "lixor", "ruolo": "Brand identity", "str": "Wordmark, simbolo, manuale del brand", "d": "Identità visiva di Lixor: wordmark lineare, segno a stella e versioni bianco su nero e nero su bianco. Il manuale definisce colori (nero, bianco e l'accento Scintilla), spazi di rispetto basati sul modulo della stella, tipografia e regole d'uso.", "pdf": [["Brand identity (PDF)", "lixor-brand-identity.pdf"]], "demo": "demo/index.html", "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"]}, "Kinetix": {"slug": "kinetix", "ruolo": "Sito web, social media, contenuti", "str": "Sito animato, reel e caroselli Instagram", "d": "Kinetix.Lab è uno studio web e AI («Siti che si muovono. Sistemi che pensano.»). Ho curato il sito, con le sezioni Lavori, Web & Design e AI & Automazione, e un calendario Instagram in stile Neon Field con reel e caroselli per settembre e ottobre 2026.", "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg"]}, "Podcast": {"slug": "podcast", "ruolo": "Branding, format, social", "str": "Logo, cover, brand kit", "d": "Tè e Veleno è un video podcast di Veronica e Giulia per YouTube, Spotify, TikTok e Reels: due amiche, due tazze, vita vera e gossip. Il brand kit definisce voce, promessa («Ti sentirai la terza amica al tavolo»), community, logo e cover.", "pdf": [["Brand kit (PDF)", "te-e-veleno-brand.pdf"]], "img": ["01.jpg", "02.jpg"]}, "Demon King": {"slug": "demon-king", "ruolo": "Social media, grafica", "str": "Post, reel, copy e hashtag", "d": "Contenuti social per il romanzo dark fantasy Demon King pubblicato su Wattpad: un post per annunciare l'edizione cartacea e un reel con frame illustrati, con caption e hashtag per la community BookTok italiana.", "img": ["01.jpg", "02.jpg", "03.jpg"]}, "Tecnobici Home": {"slug": "tecnobici-home", "ruolo": "Web design, copy", "str": "HTML, CSS, foto prodotto", "d": "Bozza della nuova homepage di Tecnobici Elettrica: barra in alto più pulita, menu fisso con Kit, Bici, Batterie, Officina e Chi siamo, e un hero «La tua bici. Elettrica.». Due grandi riquadri separano i kit di conversione dalle bici elettriche complete. È una bozza locale, non è online.", "demo": "demo/index.html", "img": ["00.jpg", "01.jpg", "02.jpg"]}, "Tema Shopify": {"slug": "tema-shopify", "ruolo": "Sviluppo tema, contenuti", "str": "Shopify (Liquid), foto studio", "d": "Aggiornamento di una copia locale del tema Shopify di Tecnobici Elettrica: nuove foto studio di bici e kit inserite nello slideshow e nelle sezioni della home, con le modifiche documentate passo per passo. Il sito live non è stato toccato.", "img": ["01.jpg"]}, "Bozza Apple": {"slug": "bozza-apple", "ruolo": "UI design", "str": "HTML, CSS", "d": "Prototipo statico in stile Apple per il restyling di tecnobicielettrica.it: homepage con hero, categorie e kit in evidenza, collezione dei kit Bafang e scheda prodotto. È solo una bozza visiva, non collegata a Shopify.", "demo": "demo/index.html", "img": ["01.jpg", "02.jpg", "03.jpg"]}, "Gestionale Tecnobici": {"slug": "gestionale", "ruolo": "Progettazione e sviluppo app", "str": "App web, preventivi PDF/HTML, WhatsApp", "d": "Gestionale interno per Tecnobici Elettrica: schede cliente, campagne WhatsApp con stato e appunti, creazione dei preventivi in PDF e HTML e invio via WhatsApp o email. Le immagini sono sfocate per proteggere i dati dei clienti.", "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg"]}, "Iconic Closet": {"slug": "iconic-closet", "ruolo": "Concept, UX, prototipo", "str": "App web, armocromia, IT/EN", "d": "Iconic Closet è un'app di armadio digitale con armocromia e abbinamento outfit, in estetica Y2K, in italiano e inglese. Il prototipo guida l'analisi dei colori (pelle, occhi, capelli, metalli, drappeggi) fino alla rivelazione della palette, perché si parte dall'analisi colori e non dall'armadio.", "demo": "demo/index.html", "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg", "05.jpg"]}, "App invio lead": {"slug": "lead-invii", "ruolo": "Progettazione e sviluppo app", "str": "App web, email, WhatsApp", "d": "App di Kinetix.Lab per scrivere ai contatti commerciali: composizione dei messaggi email e WhatsApp, storico degli invii, schede con richiami e impostazioni del mittente. Le immagini sono sfocate perché contengono contatti reali.", "img": ["01.jpg", "02.jpg", "03.jpg", "04.jpg"]}, "Pagine prenotazione": {"slug": "pagine-prenotazione", "ruolo": "Landing page, raccolta lead", "str": "HTML, moduli", "d": "Due landing page di Tecnobici Elettrica a Este per raccogliere richieste: prenotazione del tagliando della batteria e-bike e prova gratuita dell'esoscheletro. In questa demo l'invio del modulo è disattivato.", "demo": ["demo/prenota-tagliando-batteria.html", "demo/prova-esoscheletro.html"], "img": ["01.jpg", "02.jpg", "03.jpg"]}};
+function openProj(m,n){const p=PROJ[n];if(!p){return}const b='progetti/'+p.slug+'/';
+ const g=p.img.map((f,i)=>'<img src="'+b+f+'" data-i="'+i+'" loading="lazy" alt="">').join('');
+ let btn='';const dm=p.demo?(Array.isArray(p.demo)?p.demo:[p.demo]):[];dm.forEach((d,i)=>btn+='<a class="btn" target="_blank" href="'+b+d+'">Apri demo'+(dm.length>1?' '+(i+1):'')+' ↗</a>');
+ (p.pdf||[]).forEach(x=>btn+='<a class="btn ghost" target="_blank" href="'+b+x[1]+'">'+x[0]+' ↗</a>');
+ openPanel('<p class="kick" style="color:'+m.c+'">'+m.name+' · '+m.cat+'</p><h2>'+n+'</h2>'+
+ '<div class="proj"><div><div class="gal">'+g+'</div></div><div class="meta"><h3>Ruolo</h3><p>'+p.ruolo+'</p><h3>Descrizione</h3><p>'+p.d+'</p><h3>Strumenti</h3><p>'+p.str+'</p><div class="btns">'+btn+'</div></div></div>');
+ PC.querySelectorAll('.gal img').forEach(im=>im.onclick=()=>lb(p.img.map(f=>b+f),+im.dataset.i))}
+const LB=document.createElement('div');LB.id='lb';LB.innerHTML='<img><button class="x">×</button><button class="pv">‹</button><button class="nx">›</button>';document.body.appendChild(LB);
+let LBL=[],LBI=0;function lb(l,i){LBL=l;LBI=i;LB.querySelector('img').src=l[i];LB.classList.add('on')}
+LB.querySelector('.x').onclick=()=>LB.classList.remove('on');LB.onclick=e=>{if(e.target===LB)LB.classList.remove('on')};
+LB.querySelector('.pv').onclick=()=>lb(LBL,(LBI+LBL.length-1)%LBL.length);LB.querySelector('.nx').onclick=()=>lb(LBL,(LBI+1)%LBL.length);
+function openInfo(id){if(id==='chi')openPanel('<h2>Chi sono</h2><p class="bio">Ciao, sono <b>Veronica Basile</b>. Commerciale e social media manager: unisco strategia, comunicazione e strumenti digitali per far crescere progetti e brand.<br><br><span style="color:#8ea3c9">[Bio completa in arrivo]</span></p>',1);
+ else openPanel('<h2>Contatti</h2><p class="bio">Email · LinkedIn · Instagram<br><span style="color:#8ea3c9">[Contatti in arrivo]</span></p>',1)}
+function back(){if(LB.classList.contains('on')){LB.classList.remove('on');return}if(panelOpen)closePanel();else if(focus)unfocus()}
+document.getElementById('back').onclick=back;addEventListener('keydown',e=>{if(e.key==='Escape')back()});
+document.querySelectorAll('[data-info]').forEach(a=>a.onclick=e=>{e.preventDefault();openInfo(a.dataset.info)});
+let OFF=0;const SK=document.getElementById('skip');SK.onclick=()=>{OFF=Math.max(OFF,10.6-((performance.now()-T0)/1000))};
+const MENU_T=10.2;let B={};
+function nav(t,p,tg){const dt=Math.min(.1,Math.max(0,t-lastT));lastT=t;
+ const np=nep.position,f=tg.clone().sub(p).normalize(),rt=new V().crossVectors(f,new V(0,1,0)).normalize(),up=new V().crossVectors(rt,f).normalize();
+ const tilt=up.clone().multiplyScalar(.42).add(f.clone().multiplyScalar(-.9)).normalize();B={f,rt,up,tilt};
+ const k=ss((t-MENU_T)/1.6);
+ MOONS.forEach(m=>{const a=m.ph+t*m.sp,d=lerp(1.2,m.d,k);m.mesh.visible=k>0;m.mesh.scale.setScalar(Math.max(.001,k));
+  m.mesh.position.copy(np).add(rt.clone().multiplyScalar(Math.cos(a)*d*1.0)).add(tilt.clone().multiplyScalar(Math.sin(a)*d));m.mesh.rotation.y+=dt*.1;
+  const v=fAm.get(m);fAm.set(m,v+((focus===m?1:0)-v)*Math.min(1,dt*2.2))});
+ const tf=focus?1:0;fA+=(tf-fA)*Math.min(1,dt*2.2);
+ let fm=focus||MOONS.reduce((x,y)=>fAm.get(x)>fAm.get(y)?x:y);const e=ss(Math.min(1,fA*1.02));
+ if(e>0.0005){const mp=fm.mesh.position,dir=p.clone().sub(mp).normalize(),cp=mp.clone().add(dir.multiplyScalar(fm.r*8.5)).add(rt.clone().multiplyScalar(fm.r*2.5));
+  p=p.clone().lerp(cp,e);tg=tg.clone().lerp(mp,e)}
+ return[p,tg]}
+function labels(t){const k=ss((t-MENU_T)/1.6),W=innerWidth,H=innerHeight;SK.classList.toggle('gone',t>MENU_T);document.body.classList.toggle('menu',k>.5);
+ txt.style.opacity=parseFloat(txt.style.opacity||0)*(1-ss(fA*1.4));
+ const pr=v=>{const s=v.clone().project(C);return[(s.x*.5+.5)*W,(-s.y*.5+.5)*H,s.z]};
+ MOONS.forEach(m=>{const fa=fAm.get(m),mp=m.mesh.position,[x,y,z]=pr(mp);const dist=C.position.distanceTo(mp),rpx=m.r*k/dist/Math.tan(22.5*Math.PI/180)*H/2;
+  const other=focus&&focus!==m;m.lab.style.cssText+=';left:'+x+'px;top:'+(y+rpx+10)+'px;opacity:'+(k*(other?.25:1))+';pointer-events:'+(k>.5?'auto':'none');
+  m.hit.style.cssText='width:'+(rpx*2+16)+'px;height:'+(rpx*2+16)+'px;top:'+(-rpx*2-26)+'px';
+  const sr=m.r*lerp(2.6,2.3,fa),n=m.sats.length;
+  m.sats.forEach((d,j)=>{const a=j/n*6.2832+t*lerp(.35,.06,fa);const sp=mp.clone().add(B.rt.clone().multiplyScalar(Math.cos(a)*sr*1.3)).add(B.tilt.clone().multiplyScalar(Math.sin(a)*sr)).add(B.up.clone().multiplyScalar(Math.sin(a)*sr*fa*.9));
+   const [sx,sy,sz]=pr(sp);d.style.left=sx+'px';d.style.top=sy+'px';d.style.opacity=k*(other?.0:(.55+.45*fa));d.classList.toggle('big',fa>.5);d.style.pointerEvents=k>.5&&!other?'auto':'none'})})}
+window.__focus=id=>focusMoon(MOONS.find(m=>m.id===id));window.__proj=(id,n)=>openProj(MOONS.find(m=>m.id===id),n);window.__back=back;
+window.__frame=frame;
+if(!CAP)(function loop(){frame((performance.now()-T0)/1000+OFF);requestAnimationFrame(loop)})();
+addEventListener('resize',()=>{C.aspect=innerWidth/innerHeight;C.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
+</script></body></html>

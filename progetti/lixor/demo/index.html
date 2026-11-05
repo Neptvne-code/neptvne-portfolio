@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>LIXOR — Identità</title>
+<style>
+@font-face{
+  font-family:"Inter";
+  src:url("fonts/Inter-Variable.ttf") format("truetype");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:block;
+}
+:root{
+  --spark:#E8F1FF;
+  --hair:rgba(255,255,255,.22);
+  --mute:rgba(255,255,255,.62);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#000;color:#fff}
+body{
+  font-family:"Inter",Helvetica,Arial,sans-serif;
+  font-weight:430;
+  -webkit-font-smoothing:antialiased;
+}
+@page{size:1920px 1080px;margin:0}
+.board{
+  width:1920px;height:1080px;min-height:900px;
+  position:relative;overflow:hidden;
+  page-break-after:always;break-after:page;
+  background:#000;color:#fff;
+}
+.board:last-child{page-break-after:auto;break-after:auto}
+img{display:block;max-width:none}
+button{font-family:inherit;color:inherit}
+.top,.bot{
+  position:absolute;left:48px;right:48px;
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-size:14px;font-weight:560;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.top{top:32px}
+.bot{bottom:28px}
+.top b,.bot b{color:#fff;font-weight:560}
+.stage{position:absolute;left:48px;right:48px;top:84px;bottom:68px}
+h2{margin:0;font-size:56px;font-weight:500;letter-spacing:-.035em;line-height:1}
+.kicker{
+  margin:0 0 14px;
+  font-size:14px;font-weight:560;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mute);
+}
+p{margin:0}
+.rule{font-size:28px;line-height:1.35;margin-top:22px;max-width:780px}
+
+.cover-inner{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+}
+.cover img{width:920px;height:auto}
+.cover .line{
+  color:#fff;font-weight:400;font-size:32px;letter-spacing:.28em;text-indent:.28em;
+}
+
+.vgrid{display:grid;grid-template-columns:760px 760px 400px;height:1080px}
+.v{position:relative;display:flex;align-items:center;justify-content:center}
+.v.dark{background:#000}
+.v.light{background:#fff;color:#000}
+.vlab{
+  position:absolute;top:40px;left:36px;
+  font-size:22px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+}
+.vcap{position:absolute;left:36px;right:36px;bottom:40px;font-size:22px;line-height:1.3}
+.v.dark .vcap{color:rgba(255,255,255,.72)}
+.v.light .vcap{color:rgba(0,0,0,.55)}
+.v img.word{width:640px;height:auto}
+.vsplit{position:relative;display:grid;grid-template-rows:1fr 1fr;height:1080px}
+.half{position:relative;display:flex;align-items:center;justify-content:center}
+.half.k{background:#000}
+.half.w{background:#fff}
+.half img{width:300px;height:auto}
+.half .mini{
+  position:absolute;left:28px;bottom:24px;
+  font-size:16px;font-weight:560;letter-spacing:.16em;text-transform:uppercase;
+}
+.half.k .mini{color:rgba(255,255,255,.7)}
+.half.w .mini{color:rgba(0,0,0,.5)}
+
+.color{display:flex;flex-direction:column;height:1080px;padding:36px 40px 40px;gap:18px}
+.color .head{display:flex;justify-content:space-between;align-items:baseline}
+.swrow{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;min-height:0}
+.swcol{display:flex;flex-direction:column;gap:16px;min-height:0}
+.swatch{flex:1;min-height:0}
+.swatch.nero{background:#000;border:1px solid rgba(255,255,255,.35)}
+.swatch.bianco{background:#fff}
+.swatch.spark{background:#E8F1FF}
+.meta .nm{font-size:36px;font-weight:520;letter-spacing:-.03em;line-height:1}
+.meta .hx{font-size:42px;font-weight:500;letter-spacing:.06em;margin-top:6px;font-variant-numeric:tabular-nums}
+.meta .use{margin-top:8px;font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;height:100%}
+.cs{margin-top:40px;display:flex;align-items:center;gap:28px}
+.cs-frame{border:2px dashed rgba(255,255,255,.55);padding:86px}
+.cs-frame img{width:500px;height:auto}
+.mod{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.mod img{width:86px;height:auto}
+.mod span{font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:1.35}
+.minbox{margin-top:36px;display:flex;align-items:flex-end;gap:28px}
+.minbox img{width:96px;height:auto}
+.bigfig{font-size:80px;font-weight:500;letter-spacing:-.04em;line-height:.85}
+.note{margin-top:18px;font-size:22px;line-height:1.4;color:var(--mute);max-width:520px}
+
+.typegrid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;height:100%}
+.manifesto{margin-top:28px;font-size:64px;font-weight:500;letter-spacing:-.038em;line-height:1.02}
+.wordline{margin-top:36px}
+.wordline img{width:520px;height:auto}
+.spec{margin-top:8px;border-top:1px solid var(--hair)}
+.spec article{
+  display:grid;grid-template-columns:160px 1fr;gap:22px;align-items:baseline;
+  border-bottom:1px solid var(--hair);padding:22px 0;
+}
+.spec .meta{font-size:14px;font-weight:560;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);line-height:1.35}
+.ui-title{font-size:36px;font-weight:580;letter-spacing:-.03em}
+.body{font-size:24px;line-height:1.4}
+.caption{font-size:22px;line-height:1.35;color:var(--mute)}
+.label{font-size:16px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+
+.starhead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.ramp{display:flex;align-items:flex-end;gap:28px}
+.ramp .s{display:flex;flex-direction:column;align-items:center;gap:8px}
+.ramp .s span{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}
+.mock{
+  border:1px solid var(--hair);min-height:440px;padding:36px 40px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.mock h3{margin:0;font-size:16px;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+.tabs{display:flex;gap:48px;align-items:flex-end}
+.tab{display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.4);font-size:22px;font-weight:520}
+.tab.on{color:#fff}
+.tab img{width:22px;height:auto;opacity:0}
+.tab.on img{opacity:1;filter:drop-shadow(0 0 6px #E8F1FF)}
+.quota{display:flex;align-items:center;gap:16px;font-size:40px;font-weight:520;letter-spacing:-.03em}
+.quota img{width:36px;height:auto;filter:drop-shadow(0 0 8px #E8F1FF)}
+.mock p{font-size:22px;line-height:1.35;color:var(--mute);max-width:640px}
+
+.voice{max-width:1100px}
+.voice h3{margin:0 0 8px;font-size:16px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.voice .sub{font-size:24px;color:var(--mute);margin-bottom:8px}
+.words{list-style:none;margin:18px 0 0;padding:0}
+.words li{
+  font-size:64px;font-weight:500;letter-spacing:-.035em;line-height:1.02;
+  border-top:1px solid var(--hair);padding:10px 0 12px;
+}
+
+.phoneboard{display:flex;align-items:center;justify-content:center;gap:80px;height:100%}
+.phone{
+  width:390px;height:700px;background:#000;border:1px solid rgba(255,255,255,.35);
+  border-radius:36px;padding:26px 22px 22px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.ph-head{display:flex;align-items:center;justify-content:space-between}
+.ph-head img{height:22px;width:auto}
+.saldo{text-align:right}
+.saldo .lbl{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.saldo .num{font-size:28px;font-weight:560;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.seg{display:grid;grid-template-columns:1fr 1fr 1fr;height:48px;border:1px solid var(--hair);border-radius:999px;overflow:hidden}
+.seg button{background:transparent;border:0;color:var(--mute);font-size:16px;font-weight:520}
+.seg button.on{background:#E8F1FF;color:#000}
+.pcard{border:1px solid var(--hair);border-radius:16px;padding:16px 16px 14px}
+.pcard.long{padding-bottom:22px}
+.pcard .row{display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:620}
+.badge{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:620;border:1px solid #fff;border-radius:999px;padding:5px 8px}
+.badge.fill{background:#fff;color:#000}
+.pcard h3{margin:14px 0 0;font-size:22px;font-weight:540;letter-spacing:-.02em;line-height:1.2}
+.pcard.long h3{font-size:24px}
+.dur{margin-top:16px;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.rx{display:flex;justify-content:space-between}
+.rx button{width:52px;background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:6px}
+.rx small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:560}
+.rep{margin-top:auto}
+.rep .lbl{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+.bar{height:3px;background:rgba(255,255,255,.2)}
+.bar span{display:block;height:3px;width:72%;background:#fff}
+.beside h2{font-size:64px}
+.beside p{margin-top:18px;font-size:26px;line-height:1.35;color:var(--mute);max-width:520px}
+.beside .numtag{margin-top:28px;font-size:22px;letter-spacing:.16em;text-transform:uppercase}
+
+.rlist{margin-top:28px;display:flex;flex-direction:column}
+.rlist article{
+  display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:baseline;
+  border-top:1px solid var(--hair);padding:22px 0;
+}
+.rlist h3{margin:0;font-size:22px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.rlist p{font-size:28px;line-height:1.3}
+.rlist strong{font-weight:620}
+
+@media print{
+  .board{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<section class="board cover" id="c01">
+  <div class="cover-inner">
+    <img src="wordmark.svg" alt="LIXOR">
+    <p class="line">Hero. Quota. Nient'altro.</p>
+  </div>
+</section>
+
+<section class="board" id="c02">
+  <div class="vgrid">
+    <div class="v dark">
+      <div class="vlab">Primario</div>
+      <img class="word" src="wordmark.svg" alt="LIXOR, bianco su nero">
+      <p class="vcap">Bianco su nero.<br>Wordmark lineare.</p>
+    </div>
+    <div class="v light">
+      <div class="vlab">Inverso</div>
+      <img class="word" src="wordmark-nero.svg" alt="LIXOR, nero su bianco">
+      <p class="vcap">Nero su bianco.<br>Gli stessi tratti.</p>
+    </div>
+    <div class="vsplit">
+      <div class="vlab" style="z-index:2">Segno</div>
+      <div class="half k">
+        <img src="segno.svg" alt="Stella bianca">
+        <span class="mini">Su nero</span>
+      </div>
+      <div class="half w">
+        <img src="segno-nero.svg" alt="Stella nera">
+        <span class="mini">Su bianco</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c03">
+  <div class="color">
+    <div class="head">
+      <span class="kicker" style="margin:0">03 — Colore</span>
+      <span class="kicker" style="margin:0">LIXOR</span>
+    </div>
+    <div class="swrow">
+      <div class="swcol">
+        <div class="swatch nero"></div>
+        <div class="meta">
+          <div class="nm">Nero</div>
+          <div class="hx">#000000</div>
+          <div class="use">Campo e struttura</div>
+        </div>
+      </div>
+      <div class="swcol">
+        <div class="swatch bianco"></div>
+        <div class="meta">
+          <div class="nm">Bianco</div>
+          <div class="hx">#FFFFFF</div>
+          <div class="use">Wordmark e testo</div>
+        </div>
+      </div>
+      <div class="swcol">
+        <div class="swatch spark"></div>
+        <div class="meta">
+          <div class="nm">Scintilla</div>
+          <div class="hx">#E8F1FF</div>
+          <div class="use">Bagliore e stato attivo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c04">
+  <div class="top"><b>LIXOR</b><span>04 — Spazio</span></div>
+  <div class="bot"><span>Identità</span><span>Un modulo. La stella.</span></div>
+  <div class="stage">
+    <div class="two">
+      <div>
+        <p class="kicker">Spazio libero</p>
+        <h2>Una stella di aria, su ogni lato.</h2>
+        <p class="rule">Il modulo è la larghezza della stella. Intorno al wordmark resta solo quello spazio.</p>
+        <div class="cs">
+          <div class="cs-frame"><img src="wordmark.svg" alt=""></div>
+          <div class="mod">
+            <img src="segno.svg" alt="">
+            <span>Modulo 1×</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="kicker">Minimo</p>
+        <h2>96 px.</h2>
+        <p class="rule">Da questa larghezza in su il wordmark resta leggibile e la stella resta una stella.</p>
+        <div class="minbox">
+          <img src="wordmark.svg" alt="LIXOR a 96 px">
+          <div class="bigfig">96</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c05">
+  <div class="top"><b>LIXOR</b><span>05 — Carattere</span></div>
+  <div class="bot"><span>Identità</span><span>Inter · SIL Open Font License</span></div>
+  <div class="stage">
+    <div class="typegrid">
+      <div>
+        <p class="kicker">Manifesto · Inter</p>
+        <p class="manifesto">Chi entra è un Hero.<br>Quello che riceve è una quota.<br>Il resto resta fuori.</p>
+        <div class="wordline"><img src="wordmark.svg" alt="LIXOR"></div>
+        <p class="note">Il wordmark è il segno disegnato. Inter è il carattere dell’interfaccia.</p>
+      </div>
+      <div>
+        <div class="spec">
+          <article>
+            <div class="meta">Titolo UI<br>36 / 580</div>
+            <div class="ui-title">Carte in ProMotion</div>
+          </article>
+          <article>
+            <div class="meta">Testo<br>24 / 430</div>
+            <div class="body">REACT è breve. EXPERIENCE resta più a lungo. Marca, titolo, durata.</div>
+          </article>
+          <article>
+            <div class="meta">Didascalia<br>22 / 430</div>
+            <div class="caption">Social è prossimità. Persona resta privata.</div>
+          </article>
+          <article>
+            <div class="meta">Etichetta<br>16 / 600<br>+0.20em</div>
+            <div class="label">Quanto ti rappresenta</div>
+          </article>
+        </div>
+        <p class="note">Le etichette vanno in maiuscolo, con tracking aperto. I titoli restano in minuscolo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c06">
+  <div class="top"><b>LIXOR</b><span>06 — Simbolo</span></div>
+  <div class="bot"><span>Identità</span><span>Una stella.</span></div>
+  <div class="stage">
+    <div class="starhead">
+      <div>
+        <p class="kicker">Il segno, da solo</p>
+        <h2>Piccola, e basta.</h2>
+      </div>
+      <div class="ramp">
+        <div class="s"><img src="segno.svg" style="height:24px;width:auto" alt=""><span>24</span></div>
+        <div class="s"><img src="segno.svg" style="height:40px;width:auto" alt=""><span>40</span></div>
+        <div class="s"><img src="segno.svg" style="height:64px;width:auto" alt=""><span>64</span></div>
+        <div class="s"><img src="segno.svg" style="height:96px;width:auto;filter:drop-shadow(0 0 10px #E8F1FF)" alt=""><span>96</span></div>
+      </div>
+    </div>
+    <div class="uses">
+      <div class="mock">
+        <h3>Tab attiva</h3>
+        <div class="tabs">
+          <div class="tab on"><img src="segno.svg" alt=""><span>Home</span></div>
+          <div class="tab"><img src="segno.svg" alt=""><span>Social</span></div>
+          <div class="tab"><img src="segno.svg" alt=""><span>Persona</span></div>
+        </div>
+        <p>Il punto della tab è la stella. Il bagliore è Scintilla, #E8F1FF.</p>
+      </div>
+      <div class="mock">
+        <h3>Quota ricevuta</h3>
+        <div class="quota"><img src="segno.svg" alt=""><span>Quota ricevuta</span></div>
+        <p>Un segno accanto alla frase. La quota è arrivata.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c07">
+  <div class="top"><b>LIXOR</b><span>07 — Voce</span></div>
+  <div class="bot"><span>Identità</span><span>Manifesto secco</span></div>
+  <div class="stage">
+    <div class="voice">
+      <h3>Diciamo</h3>
+      <p class="sub">Le parole del prodotto, in questa forma.</p>
+      <ul class="words">
+        <li>Hero</li>
+        <li>quota</li>
+        <li>ProMotion</li>
+        <li>Affinity</li>
+        <li>Solo me / Amici / Pubblico</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c08">
+  <div class="top"><b>LIXOR</b><span>08 — Atomi · 390 px</span></div>
+  <div class="bot"><span>Identità</span><span>Home</span></div>
+  <div class="stage">
+    <div class="phoneboard">
+      <div class="phone" aria-label="Anteprima a 390 pixel">
+        <header class="ph-head">
+          <img src="wordmark.svg" alt="LIXOR">
+          <div class="saldo"><div class="lbl">Saldo</div><div class="num">04</div></div>
+        </header>
+        <div class="seg" role="group" aria-label="Visibilità">
+          <button type="button">Solo me</button>
+          <button type="button" class="on">Amici</button>
+          <button type="button">Pubblico</button>
+        </div>
+        <article class="pcard">
+          <div class="row"><span class="brand">Atlas</span><span class="badge">React</span></div>
+          <h3>Sala prove, un’ora secca</h3>
+          <div class="dur">40 min</div>
+        </article>
+        <article class="pcard long">
+          <div class="row"><span class="brand">Atlas</span><span class="badge fill">Experience</span></div>
+          <h3>Una sera intera, senza spiegazioni</h3>
+          <div class="dur">4 h</div>
+        </article>
+        <div class="rx" aria-label="Reazioni">
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 11h14"/></svg><small>Visto</small></button>
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="5.25"/></svg><small>Tengo</small></button>
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.5 11 8l5 5.5"/></svg><small>Alzo</small></button>
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h12"/><path d="M12 7.5 16.5 11 12 14.5"/></svg><small>Passo</small></button>
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 6.5 13 15.5"/><path d="M12 6.5 17 15.5"/></svg><small>Vicino</small></button>
+          <button type="button"><svg width="26" height="26" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6.25" y="6.25" width="9.5" height="9.5"/></svg><small>Chiudo</small></button>
+        </div>
+        <div class="rep">
+          <div class="lbl">Quanto ti rappresenta</div>
+          <div class="bar"><span></span></div>
+        </div>
+      </div>
+      <div class="beside">
+        <p class="kicker">Schermo</p>
+        <h2>390 × 700.</h2>
+        <p>La carta ProMotion porta marca, titolo, badge e durata. Il saldo è un numero di quote.</p>
+        <p class="numtag">Default · Amici</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="board" id="c09">
+  <div class="top"><b>LIXOR</b><span>09 — Regole di schermo</span></div>
+  <div class="bot"><span>Identità</span><span>Cinque pezzi</span></div>
+  <div class="stage">
+    <p class="kicker">Atomi</p>
+    <h2>Quello che si legge, in grande.</h2>
+    <div class="rlist">
+      <article>
+        <h3>Testata</h3>
+        <p>Il wordmark a sinistra. A destra il <strong>saldo</strong>: un numero di quote.</p>
+      </article>
+      <article>
+        <h3>Visibilità</h3>
+        <p><strong>Solo me</strong>, <strong>Amici</strong>, <strong>Pubblico</strong>. Il default è Amici, in Scintilla.</p>
+      </article>
+      <article>
+        <h3>Carta</h3>
+        <p>Marca, titolo, badge <strong>REACT</strong> o <strong>EXPERIENCE</strong>, durata. REACT è corta. EXPERIENCE è più lunga.</p>
+      </article>
+      <article>
+        <h3>Reazioni</h3>
+        <p>Sei segni lineari, stesso spessore di tratto.</p>
+      </article>
+      <article>
+        <h3>Completezza</h3>
+        <p>Una barra sottile. L’etichetta è <strong>Quanto ti rappresenta</strong>.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
