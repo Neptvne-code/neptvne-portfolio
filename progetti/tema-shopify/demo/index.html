@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anteprima locale homepage — Tecnobicielettrica</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&family=Roboto:400,500,700" rel="stylesheet">
+<style>
+  body { margin:0; font-family: Roboto, Arial, sans-serif; color:#1a1a1a; background:#fff; }
+  a { color: inherit; }
+  .promo_topbar { background:#1e1e1e; color:#fff; text-align:center; font-size:13px; padding:8px 16px; }
+  .promo_topbar a { color:#fff; text-decoration:underline; }
+  header.site {
+    background:#1e1e1e; color:#fff;
+  }
+  header.site .bar {
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1200px; margin:0 auto; padding:14px 20px; gap:16px;
+  }
+  header.site img.logo { height:42px; width:auto; }
+  header.site nav { display:flex; gap:22px; flex-wrap:wrap; font-size:14px; letter-spacing:.04em; }
+  header.site nav a { color:#fff; text-decoration:none; }
+  @font-face {
+    font-family: Inter;
+    src: url("assets/Inter.ttf") format("truetype");
+    font-weight: 100 900;
+    font-display: swap;
+  }
+  .hero {
+    background: #f3f6f9;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(280px, 400px) minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    min-height: 640px;
+    padding: 36px 40px 28px 5.5vw;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #1d1d1f;
+  }
+  .hero .eyebrow {
+    color: #86868b;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .hero h1 {
+    font-size: clamp(52px, 6vw, 80px);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    font-weight: 680;
+    margin: 0 0 18px;
+  }
+  .hero .lede {
+    color: #6e6e73;
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin: 0 0 32px;
+    max-width: 26rem;
+  }
+  .hero .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 0 22px; border-radius: 980px;
+    text-decoration: none; font-size: 15px; font-weight: 500;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .hero .btn:hover { transform: scale(1.03); }
+  .hero .btn--fill { background: #0071e3; color: #fff; }
+  .hero .btn--fill:hover { background: #0077ed; }
+  .hero .btn--line { color: #0071e3; background: transparent; box-shadow: inset 0 0 0 1px #0071e3; }
+  .hero__visual { min-width: 0; }
+  .hero__visual img { width: 100%; height: auto; object-fit: contain; object-position: center right; }
+  .section-product-v5 { padding:70px 0 30px; }
+  .section-product-v5 h2 {
+    text-align:center; font-family:"Roboto Condensed", sans-serif;
+    font-size:36px; letter-spacing:.04em; margin:0 0 28px;
+  }
+  .prod-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; max-width:1100px; margin:0 auto; padding:0 20px 20px; }
+  .prod { text-align:center; text-decoration:none; color:#1a1a1a; }
+  .prod img { width:100%; height:240px; object-fit:contain; background:#fafafa; }
+  .prod h3 { font-size:15px; margin:12px 0 6px; font-weight:600; }
+  .prod .price { font-size:14px; }
+  .prod .price s { color:#888; margin-right:8px; }
+  .note { max-width:1100px; margin:0 auto 10px; padding:0 20px; color:#666; font-size:13px; }
+  .section-collection-v6 { padding:40px 0 70px; }
+  .section-collection-v6 .brand-block { max-width:1100px; margin:36px auto; padding:0 20px; }
+  .section-collection-v6 .pair { display:flex; gap:18px; align-items:stretch; }
+  .section-collection-v6 .pair a { flex:1; min-width:0; background:#f3f3f3; }
+  .section-collection-v6 .pair img { width:100%; height:420px; object-fit:contain; display:block; background:#f3f3f3; }
+  .title-banner { background:#000; display:inline-block; padding:22px 26px; margin-bottom:16px; }
+  .title-banner h3 { color:#e6e5e5; margin:0 0 6px; letter-spacing:2px; font-size:32px; }
+  .title-banner p { color:#9a9a9a; margin:0; font-weight:700; }
+  .reviews {
+    background:#f7f7f7; text-align:center; padding:48px 20px; border-top:1px solid #eee;
+  }
+  .reviews h2 { font-family:"Roboto Condensed", sans-serif; font-size:28px; margin:0 0 8px; }
+  .foot-note { font-size:12px; color:#777; text-align:center; padding:18px; }
+  @media (max-width:800px) {
+    .prod-grid { grid-template-columns:1fr 1fr; }
+    .hero { grid-template-columns: 1fr; padding: 20px 20px 36px; min-height: 0; }
+    .hero__visual { order: -1; margin: 0 -4px; }
+    .hero__visual img { object-position: center; }
+    .section-collection-v6 .pair { flex-direction:column; }
+    .section-collection-v6 .pair img { height:auto; }
+    header.site nav { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="promo_topbar"><b>PAGAMENTI A RATE</b> - Per maggiori informazioni <a href="https://tecnobicielettrica.it/pages/contatti">contattaci</a>!</div>
+<header class="site">
+  <div class="bar">
+    <img class="logo" src="assets/logo-w.png" alt="Tecnobicielettrica">
+    <nav>
+      <a href="https://tecnobicielettrica.it/">Home</a>
+      <a href="https://tecnobicielettrica.it/pages/chi-siamo">Chi Siamo</a>
+      <a href="https://tecnobicielettrica.it/collections/all">Prodotti</a>
+      <a href="https://tecnobicielettrica.it/pages/assistenza-clienti">Assistenza</a>
+      <a href="https://tecnobicielettrica.it/pages/contatti">Contatti</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__copy">
+    <p class="eyebrow">Tecnobicielettrica · Este (PD)</p>
+    <h1 id="hero-title">La tua bici.<br>Elettrica.</h1>
+    <p class="lede">Kit di conversione Bafang e Tongsheng e bici elettriche complete, montati a Este.</p>
+    <div class="actions">
+      <a class="btn btn--fill" href="#kit">Scopri i kit</a>
+      <a class="btn btn--line" href="#bici">Scopri le bici</a>
+    </div>
+  </div>
+  <div class="hero__visual">
+    <img src="assets/bici-mtb-rossa.jpg" alt="Mountain bike rossa con batteria a triangolo, accanto al motore e alla custodia del kit.">
+  </div>
+</section>
+
+<section class="section-product-v5">
+  <h2>I più richiesti</h2>
+  <p class="note">Sezione non modificata nel tema: i prodotti arrivano ancora dalla collezione hp-venduti. Qui sotto c’è solo la vetrina com’è oggi sul sito, per vedere l’ordine della pagina.</p>
+  <div class="prod-grid">
+    <a class="prod" href="https://tecnobicielettrica.it/products/motore-tongsheng-tsdz2b-500w-48v-offerta-limitata-fino-ad-esaurimento-scorte">
+      <img src="assets/kit-tongsheng.jpg" alt="">
+      <h3>Motore Tongsheng TSDZ2B 500W 48V</h3>
+      <div class="price"><s>€499,00</s> €299,00</div>
+    </a>
+    <a class="prod" href="https://tecnobicielettrica.it/products/kit-bafang-1000w">
+      <img src="assets/bafang-batteria-verticale.jpg" alt="">
+      <h3>KIT BAFANG 1000W</h3>
+      <div class="price"><s>€1.299,00</s> €1.095,00</div>
+    </a>
+    <a class="prod" href="https://tecnobicielettrica.it/products/kit-bafang-500w">
+      <img src="assets/kit-bafang.jpg" alt="Bici grigia, custodia rigida e motore Bafang">
+      <h3>KIT BAFANG 500W</h3>
+      <div class="price"><s>€1.099,00</s> €745,00</div>
+    </a>
+    <a class="prod" href="https://tecnobicielettrica.it/products/kit-cima">
+      <img src="assets/kit-cima.jpg" alt="Kit Cima, motore e batteria a triangolo">
+      <h3>KIT CIMA</h3>
+      <div class="price"><s>€870,00</s> €655,00</div>
+    </a>
+    <a class="prod" href="https://tecnobicielettrica.it/products/kit-passo">
+      <img src="assets/kit-passo.jpg" alt="Kit Passo, motore e custodia morbida">
+      <h3>KIT PASSO</h3>
+      <div class="price"><s>€840,00</s> €615,00</div>
+    </a>
+    <a class="prod" href="https://tecnobicielettrica.it/products/kit-pianura">
+      <img src="assets/kit-pianura.jpg" alt="Motore e batteria verticale nera, Kit Pianura">
+      <h3>KIT PIANURA</h3>
+      <div class="price"><s>€729,00</s> €545,00</div>
+    </a>
+  </div>
+</section>
+
+<section class="section-collection-v6">
+  <div class="brand-block">
+    <div class="title-banner">
+      <h3>TONGSHENG</h3>
+      <p>Tutti i KIT</p>
+    </div>
+    <div class="pair">
+      <a href="https://tecnobicielettrica.it/collections/tongsheng"><img src="assets/tongsheng-kit-ufficiale.jpg" alt="Motore Tongsheng e batteria verticale"></a>
+      <a href="https://tecnobicielettrica.it/collections/tongsheng"><img src="assets/kit-tongsheng.jpg" alt="Bici grigia completa con kit Tongsheng"></a>
+    </div>
+  </div>
+  <div class="brand-block">
+    <div class="title-banner">
+      <h3>BAFANG</h3>
+      <p>Tutti i Kit</p>
+    </div>
+    <div class="pair">
+      <a href="https://tecnobicielettrica.it/collections/bafang"><img src="assets/bafang-custodia.jpg" alt="Motore Bafang e custodia rigida"></a>
+      <a href="https://tecnobicielettrica.it/collections/bafang"><img src="assets/kit-bafang.jpg" alt="Bici grigia completa con kit Bafang"></a>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <h2>Recensioni Google</h2>
+  <p>Blocco app <strong>google-reviews-plus</strong>: lasciato com’è, non fa parte di questa anteprima statica.</p>
+</section>
+<p class="foot-note">Il menu in alto, nel tema vero, è trasparente con logo e scritte bianche sopra la slide (header v4). Qui è sulla barra scura dello stato “sticky”, così si legge sulle foto chiare. Banner demo e loghi placeholder sono nascosti nel tema e non compaiono, come sul sito live.</p>
+</body>
+</html>
