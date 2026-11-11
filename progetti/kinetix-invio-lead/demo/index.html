@@ -1,0 +1,257 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KINETIX.LAB · Invio lead</title>
+<style>
+:root{--bg:#F4F4F6;--s:#fff;--l:#E2E2E8;--fg:#15151C;--m:#6A6A78;--a:#4B3BFF;--as:#ECEAFF;--w:#B86A00;--ws:#FFF4E2;--r:#C0261C;--rs:#FDECEA;--g:#1E8A4A;--gs:#E6F5EC}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:var(--fg);color:#fff;padding:12px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header b{font-size:18px;letter-spacing:.02em}header nav{display:flex;gap:4px;flex-wrap:wrap}
+header nav button{background:none;border:0;color:#bbb;font:600 14px inherit;padding:8px 12px;border-radius:8px;cursor:pointer}
+header nav button.risp{background:#16a34a;color:#fff;font-weight:700}header nav button.risp.on{background:#15803d;outline:2px solid #fff}header nav button.risp .cnt{background:#fff;color:#15803d}header nav button.on{background:#ffffff1f;color:#fff}.cnt{background:var(--a);color:#fff;border-radius:99px;padding:0 7px;font-size:12px;margin-left:4px}
+#modo{margin-left:auto;font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;letter-spacing:.04em}
+#modo.t{background:#FFD27A;color:#3a2600}#modo.l{background:#2BD47A;color:#00240f}
+main{max-width:1180px;margin:0 auto;padding:18px}
+.card{background:var(--s);border:1px solid var(--l);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.kpi{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.kpi div{background:var(--s);border:1px solid var(--l);border-radius:10px;padding:8px 14px;min-width:120px}
+.kpi b{display:block;font-size:22px}.kpi span{color:var(--m);font-size:13px}
+.filtri{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+select,input,textarea{font:inherit;color:inherit;background:var(--s);border:1px solid var(--l);border-radius:8px;padding:7px 9px}
+textarea{width:100%;min-height:340px;resize:vertical;line-height:1.5}input.w{width:100%}
+table{width:100%;border-collapse:collapse;background:var(--s);border:1px solid var(--l);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--l);vertical-align:top;font-size:14px}th{background:#FAFAFC;font-size:12px;text-transform:uppercase;color:var(--m);letter-spacing:.04em}
+tr.c{cursor:pointer}tr.c:hover td{background:var(--as)}
+.st{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:#eee;white-space:nowrap}
+.st[data-s="Da contattare"]{background:var(--as);color:var(--a)}.st[data-s="Inviata"]{background:var(--gs);color:var(--g)}
+.st[data-s="Richiamo inviato"]{background:#DFF3F7;color:#0B6B7E}.st[data-s="Ha risposto"]{background:#1E8A4A;color:#fff}
+.st[data-s="Non interessato"]{background:#eee;color:#777}.st[data-s="Da verificare"]{background:var(--ws);color:var(--w)}
+.tag{font-size:12px;color:var(--m)}
+button.b{font:600 14px inherit;padding:9px 14px;border-radius:9px;border:1px solid var(--l);background:var(--s);cursor:pointer;color:inherit}
+button.p{background:var(--a);border-color:var(--a);color:#fff}button.g{background:#25D366;border-color:#25D366;color:#062}button:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{flex:1}
+.av{border-radius:10px;padding:10px 12px;margin:10px 0;font-size:14px}.av.w{background:var(--ws);border:1px solid #f0c27a}.av.r{background:var(--rs);border:1px solid #f2b0aa}.av.i{background:var(--as);border:1px solid #c9c3ff}.av.ok{background:var(--gs);border:1px solid #9fd8b5}
+.grid{display:grid;grid-template-columns:1fr 340px;gap:14px}@media(max-width:900px){.grid{grid-template-columns:1fr}}
+label.f{display:block;font-size:12px;font-weight:700;color:var(--m);text-transform:uppercase;letter-spacing:.04em;margin:10px 0 4px}
+dl{margin:0;font-size:14px}dt{font-weight:700;color:var(--m);font-size:12px;margin-top:8px}dd{margin:0}
+dialog{border:0;border-radius:14px;padding:22px;max-width:560px;width:92%;box-shadow:0 20px 60px #0004}dialog::backdrop{background:#0006}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--fg);color:#fff;padding:10px 16px;border-radius:10px;display:none;z-index:9;max-width:90%}
+h2{margin:4px 0 12px;font-size:20px}h3{margin:0 0 6px;font-size:16px}a{color:var(--a)}
+.comp input,.comp select,.comp textarea{font-size:16px;width:100%}.comp textarea{min-height:300px}
+.comp .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}@media(max-width:640px){.comp .two{grid-template-columns:1fr}}
+.files{list-style:none;margin:8px 0 0;padding:0}.files li{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--l);border-radius:8px;margin-bottom:6px;background:#FAFAFC;font-size:14px}
+.files li span.n{flex:1;overflow-wrap:anywhere}.files li button{border:0;background:none;font-size:20px;line-height:1;cursor:pointer;color:var(--m);padding:2px 6px}
+label.up{display:inline-flex;align-items:center;gap:6px;font:600 14px inherit;padding:9px 14px;border-radius:9px;border:1px dashed var(--a);color:var(--a);background:var(--as);cursor:pointer}
+label.up input{display:none}.bar{height:6px;border-radius:9px;background:var(--l);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--a)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:640px){main{padding:12px}header{padding:10px 12px;gap:8px;position:static}header nav button{padding:7px 9px;font-size:13px}#modo{margin-left:0}.comp .row button.b{flex:1 1 auto}}
+</style></head><body>
+<header><b>KINETIX.LAB</b><span style="color:#999;font-size:13px">Invio lead · dimostrazione</span>
+<nav id="nav"></nav><span id="modo"></span></header>
+<main id="m"></main><div id="toast"></div>
+<dialog id="dlg"><div id="dlgc"></div></dialog>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const api=async(p,b)=>{const r=await fetch(p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{});if(r.status==401&&!p.includes("invia")){location.href="/login";return}const j=await r.json();if(!r.ok)throw Object.assign(new Error(j.errore||"Errore"),{j});return j};
+const toast=(t,ms=3500)=>{const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",ms)};
+const fd=d=>d?d.slice(0,10).split("-").reverse().join("/"):"";
+const oggi=()=>new Date().toISOString().slice(0,10);
+function load(){render()}
+const codaEmail=()=>L.filter(x=>x.ha_email&&(x.stato=="Da contattare")).sort((a,b)=>prio(a)-prio(b));
+const codaRich=()=>L.filter(x=>x.richiamo_dovuto);
+const waProv=()=>localStorage.getItem("wa_prov")??"PD";
+const inProv=x=>!waProv()||(x.provincia||"").toUpperCase()==waProv();
+const codaWAtutte=()=>L.filter(x=>!x.ha_email&&!x.da_reperire&&(x.stato=="Da contattare"||x.richiamo_dovuto));
+const codaWA=()=>codaWAtutte().filter(inProv);
+const waConEmail=()=>L.filter(x=>x.ha_email&&x.tel&&x.tel.mobile&&inProv(x));
+function setWaProv(v){localStorage.setItem("wa_prov",v);render()}
+const prio=x=>({"Alta":0,"Media":1,"Bassa":2}[x.priorita]??3);
+function nav(){const v=[["risp","💬 Hanno risposto",L.filter(x=>x.stato=="Ha risposto").length],["coda","Email da inviare",codaEmail().length],["richiami","Richiami da inviare",codaRich().length],["wa","WhatsApp / telefono",codaWA().length],["elenco","Tutte le attività",L.length],["scrivi","✉️ Scrivi email"],["storico","Storico invii"],["imp","Impostazioni"]];
+ $("#nav").innerHTML=v.map(([k,t,n])=>`<button class="${VIEW==k?"on":""}${k=="risp"?" risp":""}" onclick="go('${k}')">${t}${n!=null?`<span class="cnt">${n}</span>`:""}</button>`).join("");
+ const m=$("#modo");m.className=ST.test?"t":"l";m.textContent=ST.test?"MODALITÀ TEST · nessuna email esce":"INVIO REALE ATTIVO"}
+function go(v){VIEW=v;SEL=null;if(v=="scrivi"&&!COMP)COMP=nuovaComp();render();scrollTo(0,0)}
+let RISP=null;
+async function vRisp(m,forza){const n=L.filter(x=>x.stato=="Ha risposto").length;
+ m.innerHTML=`<div class="row"><h2>💬 Hanno risposto (${n})</h2><span class="sp"></span><button class="b" onclick="RISP=null;vRisp($('#m'),1)">↻ Aggiorna</button></div><p class="tag">Tutte le province. Le più recenti in cima. <span id="rload">${RISP?"":"Leggo la casella…"}</span></p><div id="rl"></div>`;
+ const draw=()=>{const ls=RISP.risposte;if($("#rload"))$("#rload").textContent="";$("#rl").innerHTML=(RISP.motivo?`<div class="av w">${esc(RISP.motivo)}</div>`:"")+(ls.length?ls.map(x=>`<div class="card"><div class="row"><b style="font-size:17px">${esc(x.attivita)}</b><span class="sp"></span><span class="tag">${x.data_iso?new Date(x.data_iso).toLocaleString("it-IT",{dateStyle:"medium",timeStyle:"short"}):"data non trovata"}</span></div>
+  <div class="tag">${esc(x.citta)} ${x.provincia?"("+esc(x.provincia)+")":""} · ${esc(x.email)}</div>${x.oggetto?`<div style="margin-top:6px"><b>${esc(x.oggetto.replace(/\s+/g," "))}</b></div>`:""}
+  ${x.anteprima?`<div style="margin-top:4px;white-space:pre-wrap">${esc(x.anteprima)}${x.anteprima.length>=400?"…":""}</div>`:`<div class="tag" style="margin-top:4px">Anteprima non disponibile.</div>`}
+  ${(x.inviate||[]).length?`<details style="margin-top:10px;border-left:3px solid #ccc;padding-left:10px"><summary class="tag" style="cursor:pointer">📤 Le tue email inviate (${x.inviate.length}) — tocca per vedere</summary>${x.inviate.map(v=>`<div style="margin-top:8px"><div class="tag">${v.tipo=="richiamo"?"Richiamo":v.tipo=="primo"?"Prima email":"Email"} · ${fd(v.quando)} · a ${esc(v.a)}</div><b>${esc(v.oggetto||"")}</b><div style="white-space:pre-wrap;margin-top:4px">${esc(v.testo||"")}</div></div>`).join("")}</details>`:""}
+  <div class="row" style="margin-top:10px"><button class="b" onclick="apri(${x.id})">Apri scheda</button><button class="b p" onclick="rispondiLead(${x.id})">↩ Rispondi</button></div></div>`).join(""):'<p class="tag">Nessun lead in «Ha risposto».</p>')};
+ if(!RISP||forza){try{RISP={risposte:L.filter(x=>x.stato=="Ha risposto").map(x=>Object.assign({},x,{anteprima:"Grazie per la proposta: possiamo sentirci la prossima settimana per una breve videochiamata?",inviate:[{tipo:"primo",quando:x.data_contatto,a:x.email,oggetto:"Un'idea per il sito",testo:BOZZA}]}))}}catch(e){RISP={risposte:L.filter(x=>x.stato=="Ha risposto"),motivo:e.message}}}
+ if(VIEW=="risp"&&!SEL)draw()}
+function render(){nav();const m=$("#m");
+ if(SEL)return scheda(m);
+ ({risp:vRisp,coda:vCoda,richiami:vRich,wa:vWA,elenco:vElenco,imp:vImp})[VIEW](m)}
+function kpi(){const c=s=>L.filter(x=>x.stato==s).length;return `<div class="kpi">${ST.stati.map(s=>`<div><b>${c(s)}</b><span>${s}</span></div>`).join("")}<div><b>${ST.oggi}/${ST.limite}</b><span>email inviate oggi</span></div></div>`}
+function riga(x,extra=""){return `<tr class="c" onclick="apri(${x.id})"><td><b>${esc(x.attivita)}</b><div class="tag">${esc(x.settore)}</div></td><td>${esc(x.citta)}<div class="tag">${esc(x.regione)} ${esc(x.provincia)}</div></td>
+ <td>${esc(x.priorita)}</td><td>${x.ha_email?esc(x.email):`<span class="tag">${esc(x.telefono)||"—"}</span>`}</td><td><span class="st" data-s="${esc(x.stato)}">${esc(x.stato)}</span>${x.verificare?' <span title="Verificare che sia attiva">⚠️</span>':""}${extra}</td></tr>`}
+function tab(rows,ex){return rows.length?`<table><tr><th>Attività</th><th>Città</th><th>Priorità</th><th>Contatto</th><th>Stato</th></tr>${rows.map(x=>riga(x,ex?ex(x):"")).join("")}</table>`:`<div class="card tag">Niente in coda.</div>`}
+function vCoda(m){const r=codaEmail();m.innerHTML=kpi()+`<div class="row"><h2>Email da inviare</h2><span class="sp"></span>${r.length?`<button class="b p" onclick="apri(${r[0].id})">Apri la prima della coda →</button>`:""}</div>
+ <p class="tag">Ordinate per priorità. Ogni email si apre, si rilegge, si può modificare e parte solo quando premi «Invia» e confermi.</p>`+tab(r)}
+function vRich(m){const r=codaRich();m.innerHTML=kpi()+`<h2>Richiami da inviare</h2><p class="tag">Attività contattate da almeno ${ST.imp.giorni_richiamo} giorni che non hanno risposto. Il richiamo email parte come risposta nello stesso thread («Re: …»).</p>`+
+ tab(r,x=>`<div class="tag">contattata il ${fd(x.data_contatto)} · ${esc(x.canale_contatto||"")}</div>`)+
+ `<h3 style="margin-top:20px">In attesa</h3>`+tab(L.filter(x=>x.stato=="Inviata"&&!x.richiamo_dovuto),x=>`<div class="tag">richiamo dal ${fd(x.richiamo_dal)}</div>`)}
+function vWA(m){const r=codaWA(),pv=[...new Set(L.filter(x=>(!x.ha_email&&!x.da_reperire)||(x.tel&&x.tel.mobile)).map(x=>(x.provincia||"").toUpperCase()).filter(Boolean))].sort();if(waProv()&&!pv.includes(waProv()))pv.unshift(waProv());
+ const nasc=codaWAtutte().length-r.length,e=waConEmail();m.innerHTML=kpi()+`<div class="row"><h2>WhatsApp / telefono</h2><span class="sp"></span><label class="tag">Provincia</label><select id="waprov" onchange="setWaProv(this.value)">${pv.map(p=>`<option value="${p}" ${p==waProv()?"selected":""}>${p}${p=="PD"?" (Padova)":""}</option>`).join("")}<option value="" ${!waProv()?"selected":""}>Tutte</option></select></div>${waProv()&&nasc?`<p class="tag">${nasc} attività di altre province nascoste dal filtro.</p>`:""}<p class="tag">Attività senza email. Il pulsante apre WhatsApp con il testo già scritto: lo invii tu, poi premi «Segna come inviato su WhatsApp». Se il numero è fisso conviene chiamare.</p>`+
+ tab(r,x=>`<div class="tag">${x.tel.mobile?"📱 cellulare":"☎️ probabile fisso"}${x.richiamo_dovuto?" · richiamo":""}</div>`)+
+ `<h3 style="margin-top:20px">Con email e anche cellulare (WhatsApp)</h3><p class="tag">Puoi scrivergli anche su WhatsApp dalla scheda.</p>`+tab(e,x=>`<div class="tag">📱 ${esc(x.tel.numero)} · ${esc(x.stato)}</div>`)+
+ `<h3 style="margin-top:20px">Senza contatti (da reperire)</h3>`+tab(L.filter(x=>x.da_reperire&&inProv(x)))}
+function vElenco(m){const u=k=>[...new Set(L.map(x=>x[k]).filter(Boolean))].sort();
+ const sel=(k,lab,opts)=>`<select onchange="F.${k}=this.value;render()"><option value="">${lab}</option>${opts.map(o=>`<option ${F[k]==o?"selected":""}>${esc(o)}</option>`).join("")}</select>`;
+ let r=L.filter(x=>(!F.regione||x.regione==F.regione)&&(!F.provincia||x.provincia==F.provincia)&&(!F.priorita||x.priorita==F.priorita)&&(!F.stato||x.stato==F.stato)
+  &&(!F.canale||(F.canale=="email"?x.ha_email:!x.ha_email))&&(!F.q||(x.attivita+" "+x.citta+" "+x.email).toLowerCase().includes(F.q.toLowerCase())));
+ m.innerHTML=kpi()+`<div class="filtri"><input placeholder="Cerca…" value="${esc(F.q)}" oninput="F.q=this.value;clearTimeout(window._q);window._q=setTimeout(()=>{render();const i=document.querySelector('.filtri input');i.focus();i.setSelectionRange(99,99)},250)">
+ ${sel("regione","Tutte le regioni",u("regione"))}${sel("provincia","Tutte le province",u("provincia"))}${sel("priorita","Tutte le priorità",["Alta","Media","Bassa"])}${sel("stato","Tutti gli stati",ST.stati)}
+ <select onchange="F.canale=this.value;render()"><option value="">Email e telefono</option><option value="email" ${F.canale=="email"?"selected":""}>Con email</option><option value="tel" ${F.canale=="tel"?"selected":""}>Solo telefono</option></select>
+ <span class="sp"></span><a class="b" href="/api/export.xlsx"><button class="b">⬇ Excel</button></a><a href="/api/export.csv"><button class="b">⬇ CSV</button></a></div><p class="tag">${r.length} attività</p>`+tab(r)}
+const TIPI={primo:"prima email",richiamo:"richiamo",prova:"prova",libera:"email scritta"};
+const allegatiDi=x=>{try{return JSON.parse(x.allegati||"[]")}catch(e){return[]}};
+const puoRisp=x=>x.canale=="email"&&x.esito=="ok"&&x.message_id&&x.tipo!="prova";
+async function vStorico(m){const r=await api("/api/invii");INVII=r;m.innerHTML=`<h2>Storico invii</h2>`+(r.length?`<div class="scroll"><table><tr><th>Quando</th><th>Attività</th><th>Tipo</th><th>Canale</th><th>A</th><th>Oggetto</th><th>Modo</th><th></th></tr>${r.map(x=>{const al=allegatiDi(x);return `<tr><td>${esc(x.quando)}</td><td>${esc(x.attivita||(x.tipo=="libera"?"—":"(email di prova)"))}</td><td>${esc(TIPI[x.tipo]||x.tipo)}${x.rif?'<div class="tag">↩ risposta</div>':""}</td><td>${esc(x.canale)}</td><td>${esc(x.a)}${x.cc?`<div class="tag">Cc: ${esc(x.cc)}</div>`:""}</td><td>${esc(x.oggetto)}${al.length?`<div class="tag">📎 ${al.map(f=>esc(f.nome)).join(", ")}</div>`:""}</td><td>${x.modo=="test"?'<span class="st" data-s="Da verificare">simulato</span>':esc(x.modo)} ${x.esito!="ok"?`<span style="color:var(--r)">${esc(x.esito)}</span>`:""}</td><td>${puoRisp(x)?`<button class="b" onclick="rispondiInvio(${x.id})">↩ Rispondi</button>`:""}</td></tr>`}).join("")}</table></div>`:`<div class="card tag">Nessun invio ancora.</div>`)}
+function vImp(m){const i=ST.imp;m.innerHTML=`<h2>Impostazioni</h2><div class="card"><h3>Casella di invio</h3>
+ <dl><dt>Mittente</dt><dd>${esc(i.nome_mittente)} &lt;${esc(ST.da)}&gt;</dd><dt>SMTP</dt><dd>${esc(ST.smtp)} · utente ${esc(ST.utente)}</dd><dt>IMAP (risposte e copia in «Inviata»)</dt><dd>${esc(ST.imap)}</dd>
+ <dt>Password</dt><dd>${ST.password?"impostata (variabile d'ambiente)":"<b>non impostata</b>: l'app è in modalità test e registra gli invii senza spedirli"}</dd></dl>
+ <label class="row" style="margin-top:10px"><input type="checkbox" id="ft" ${i.forza_test=="1"?"checked":""}> Forza la modalità test anche con la password impostata</label></div><div class="card"><h3>WhatsApp</h3><label class="f">Apri WhatsApp con:</label><select id="wamodo" onchange="setWaModo(this.value)"><option value="app" ${(localStorage.getItem("wa_modo")||"app")=="app"?"selected":""}>App</option><option value="web" ${localStorage.getItem("wa_modo")=="web"?"selected":""}>WhatsApp Web</option></select><p class="tag">Salvato solo su questo browser. «WhatsApp Web» apre web.whatsapp.com nel browser (utile per usare un account diverso da quello dell'app). Su iPhone si usa sempre l'app.</p></div>
+ <div class="card"><h3>Testi e limiti</h3><label class="f">Firma</label><input class="w" id="firma" value="${esc(i.firma)}"><label class="f">Nome mittente</label><input class="w" id="nm" value="${esc(i.nome_mittente)}">
+ <div class="row"><div><label class="f">Max email al giorno</label><input type="number" id="lim" value="${esc(i.limite_giorno)}" min="1" max="200"></div><div><label class="f">Pausa minima tra invii (s)</label><input type="number" id="pau" value="${esc(i.pausa_sec)}" min="0"></div>
+ <div><label class="f">Richiamo dopo (giorni)</label><input type="number" id="gr" value="${esc(i.giorni_richiamo)}" min="1"></div></div>
+ <label class="f">Tuo indirizzo per le email di prova</label><input class="w" id="ep" value="${esc(i.email_prova)}" placeholder="es. veronica@…">
+ <div class="row" style="margin-top:12px"><button class="b p" onclick="salvaImp()">Salva</button><button class="b" onclick="firmaOvunque()">Applica la firma a tutte le bozze non inviate</button></div></div>
+ <div class="card"><h3>Dati</h3><div class="row"><button class="b" onclick="reimporta()">Importa nuove attività dagli Excel</button><button class="b" onclick="risposte()">Controlla risposte nella casella</button><button class="b" onclick="rimbalzi()">Controlla email tornate indietro</button>
+ ${ST.simulati?`<button class="b" onclick="annulla()">Annulla i ${ST.simulati} invii simulati (test)</button>`:""}</div><p class="tag">L'import aggiunge solo attività nuove (deduplica per email, dominio del sito e nome) e non tocca gli stati già presenti.</p><div id="implog"></div><div id="rimb"></div></div>
+ <div class="card"><h3>Accesso</h3><div class="row"><input type="password" id="pa" placeholder="Password attuale"><input type="password" id="pn" placeholder="Nuova password (min 10)"><button class="b" onclick="cambiaPw()">Cambia password</button><span class="sp"></span><button class="b" onclick="api('/api/logout',{}).then(()=>location.href='/login')">Esci</button></div></div>`}
+async function salvaImp(){await api("/api/impostazioni",{firma:$("#firma").value,nome_mittente:$("#nm").value,limite_giorno:$("#lim").value,pausa_sec:$("#pau").value,giorni_richiamo:$("#gr").value,email_prova:$("#ep").value,forza_test:$("#ft").checked?"1":"0"});toast("Impostazioni salvate");load()}
+async function firmaOvunque(){const r=await api("/api/firma-ovunque",{});toast(r.aggiornate+" bozze aggiornate");load()}
+async function reimporta(){const r=await api("/api/importa",{});$("#implog").innerHTML=`<div class="av i">${r.importate} nuove, ${r.duplicate} già presenti.</div>`;load()}
+async function rimbalzi(){const el=document.getElementById("rimb");el.innerHTML="Controllo in corso…";try{const r=await api("/api/rimbalzi",{});const x=r.rimbalzi||[];el.innerHTML=x.length?`<p>${x.length} email tornate indietro</p><table><tr><th>Data</th><th>Attività</th><th>Email</th><th>Motivo</th><th>Tipo</th></tr>${x.map(z=>`<tr><td>${esc(z.data)}</td><td>${esc(z.attivita||"(non abbinata)")}</td><td>${esc(z.email||"?")}</td><td>${esc(z.motivo)}</td><td>${z.permanente?"Permanente":"Temporaneo"}</td></tr>`).join("")}</table>`:"Nessuna email tornata indietro negli ultimi 30 giorni.";load()}catch(e){el.innerHTML="";toast(e.message,6000)}}
+async function risposte(){try{const r=await api("/api/risposte",{});toast(r.risposte.length?"Risposte da: "+r.risposte.join(", "):"Nessuna nuova risposta");load()}catch(e){toast(e.message,6000)}}
+async function annulla(){if(!confirm("Riporto le attività com'erano prima degli invii simulati?"))return;const r=await api("/api/annulla-simulati",{});toast(r.annullati+" invii simulati annullati");load()}
+async function cambiaPw(){try{await api("/api/password",{attuale:$("#pa").value,nuova:$("#pn").value});toast("Password cambiata");location.href="/login"}catch(e){toast(e.message)}}
+async function apri(id){SEL=L.find(x=>x.id==id);render();scrollTo(0,0)}
+function back(){SEL=null;render()}
+
+function partiBozza(x){const b=x.bozza_orig||x.bozza||"";const P={nome:x.attivita||"",bul:(b.match(/^- .+$/mg)||[]).map(l=>l.slice(2)),breve:/sono Veronica di KINETIX/.test(x.bozza_orig||"")||/sono Veronica di KINETIX/.test(x.bozza||"")};
+ let m=b.match(/presenza online (.+?), abbiamo/)||b.match(/Ho aperto il sito (.+?) dal telefono/);P.ref=m?m[1]:"";
+ m=b.match(/pensata su misura per (.+?): ([^\n]+)/);if(m){P.poss=m[1];P.ben=m[2]}else{m=b.match(/idea del nuovo sito, con ([^\n]+?)\. Non ve la/);P.ben=m?m[1]+".":"";P.poss="la vostra attività"}
+ P.nuovo=/Ho aperto il sito .+ dal telefono/.test(b);P.orig=b;return P}
+const CALLT="Basta rispondere a questa email indicando la vostra disponibilità. Se preferite, possiamo anche sentirci prima con una breve telefonata: basta indicarmi un numero e un orario comodo.";
+function modelloNuovo(P){const io=P.breve?"Veronica":"Veronica Basile";return {oggetto:"Una domanda sul sito "+P.ref,testo:`Buongiorno,\n\nsono ${io} di KINETIX.LAB. Ho aperto il sito ${P.ref} dal telefono, come farebbe un vostro nuovo cliente, e ho notato alcune cose che probabilmente vi fanno perdere contatti:\n\n${P.bul.map(l=>"- "+l).join("\n")}\n\nVi faccio una domanda: quante persone vi trovano su Google, aprono il sito e poi lo chiudono senza contattarvi?\n\nPer questo abbiamo già preparato un'idea del nuovo sito, con ${P.ben.replace(/\.$/,"")}. Non ve la mando per email: preferisco mostrarvela di persona o in una videochiamata di un quarto d'ora, gratis e senza impegno.\n\n${CALLT}\n\nPortfolio dimostrativo: www.esempio.it\n\nA presto,\n\n${io} || Kinetix Lab\n333 000 0000`}}
+function modelloClassico(P){const io=P.breve?"Veronica":"Veronica Basile";return {oggetto:"Una bozza gratuita del nuovo sito per "+P.nome,testo:`Buongiorno,\n\nsono ${io} di KINETIX.LAB, studio che progetta siti web e strumenti digitali per le attività del territorio.\n\nAnalizzando la presenza online ${P.ref}, abbiamo individuato alcune potenzialità che oggi non vengono sfruttate:\n\n${P.bul.map(l=>"- "+l).join("\n")}\n\nSe valorizzati, questi aspetti possono tradursi in maggiore visibilità, più contatti e più clienti.\n\nPer questo abbiamo preparato una bozza gratuita di un nuovo sito, pensata su misura per ${P.poss}: ${P.ben}\n\nSaremmo lieti di mostrarvela in un breve incontro, di persona o in videochiamata, nel giorno e nell'orario che preferite. Sarà anche l'occasione per valutare insieme le funzionalità più utili per voi.\n\nLa presentazione è gratuita e senza alcun impegno. ${CALLT}\n\nPotete vedere il nostro lavoro qui: https://kinetixlab.it\n\nCordiali saluti,\n\n${io} || Kinetix Lab\n333 000 0000`}}
+
+// ---- Modelli A / B / C: nessun difetto del sito affermato, solo dati del lead (nome, settore, città, provincia) ----
+const CAT={
+ ric:{target:"strutture ricettive",loc:"alla vostra struttura",ben:"camere e posizione presentate con belle foto e la richiesta di disponibilità direttamente dal telefono",vant:"per far scoprire camere e posizione con belle foto e permettere agli ospiti di chiedere la disponibilità in pochi tocchi dal telefono, anche fuori orario",pl:"strutture"},
+ agr:{target:"agriturismi e aziende agricole",loc:"alla vostra azienda",ben:"ospitalità, cucina e prodotti presentati con belle foto e la richiesta di prenotazione direttamente dal telefono",vant:"per far conoscere ospitalità, cucina e prodotti con belle foto e permettere di chiedere una prenotazione in pochi tocchi dal telefono, anche fuori orario",pl:"agriturismi"},
+ rist:{target:"ristoranti e locali",loc:"al vostro locale",ben:"menù e atmosfera del locale presentati con belle foto e la prenotazione del tavolo direttamente dal telefono",vant:"per far conoscere menù e atmosfera del locale con belle foto e permettere di prenotare un tavolo in pochi tocchi dal telefono, anche fuori orario",pl:"locali"},
+ stu:{target:"studi professionali e sanitari",loc:"al vostro studio",ben:"servizi e modo di lavorare presentati con chiarezza e la richiesta di appuntamento direttamente dal telefono",vant:"per presentare con chiarezza servizi e modo di lavorare e permettere di chiedere un appuntamento in pochi tocchi dal telefono, anche fuori orario",pl:"studi"},
+ ben:{target:"centri estetici e di benessere",loc:"al vostro centro",ben:"servizi e trattamenti presentati con belle foto e la richiesta di appuntamento direttamente dal telefono",vant:"per presentare servizi e trattamenti con belle foto e permettere di chiedere un appuntamento in pochi tocchi dal telefono, anche fuori orario",pl:"centri"},
+ spo:{target:"palestre e centri sportivi",loc:"al vostro centro",ben:"corsi e orari presentati con chiarezza e la richiesta di informazioni o iscrizione direttamente dal telefono",vant:"per presentare corsi e orari con chiarezza e permettere di chiedere informazioni o iscriversi in pochi tocchi dal telefono",pl:"centri"},
+ neg:{target:"negozi e attività commerciali",loc:"al vostro negozio",ben:"prodotti e servizi in vetrina con belle foto e la richiesta di informazioni o preventivo direttamente dal telefono",vant:"per mettere in vetrina prodotti e servizi con belle foto e permettere ai clienti di contattarvi o chiedere un preventivo in pochi tocchi dal telefono",pl:"negozi"},
+ gen:{target:"piccole attività del territorio",loc:"alla vostra attività",ben:"la vostra attività presentata con chiarezza e un modo semplice per contattarvi direttamente dal telefono",vant:"per presentare con chiarezza la vostra attività e permettere ai clienti di contattarvi in pochi tocchi dal telefono, anche fuori orario",pl:"attività"}};
+function catDi(x){return catDa((x.settore||"").toLowerCase())||catDa((x.attivita||"").toLowerCase())||CAT.gen}
+function catDa(s){
+ if(/studio|dentist|fisioter|poliambul|commercial|legale|tecnic|immobil|servizi professionali|medic|clinica/.test(s))return CAT.stu;
+ if(/parrucch|estetic|benessere|beauty|spa\b/.test(s))return CAT.ben;
+ if(/palestra|fitness|sportiv|padel|arti marziali/.test(s))return CAT.spo;
+ if(/negozio|abbigliamento|libreria|ottica|commercio|fiorist|merceria|forniture|e-commerce/.test(s))return CAT.neg;
+ if(/agriturism/.test(s))return CAT.agr;
+ if(/hotel|b&b|affittacamere|ospitalit|casa per ferie|appartament|locanda|albergo|residence/.test(s))return CAT.ric;
+ if(/ristor|trattoria|pizzeria|osteria|\bpub\b|burgher|cicchett|pasticceria|caffetteria|enoteca|bar\b/.test(s))return CAT.rist;
+ return null}
+const NF=["pizzeria","trattoria","osteria","locanda","villa","casa","taverna","enoteca","cantina","pensione","azienda","palestra","libreria","ottica","merceria","pasticceria","gelateria","boutique","agenzia","cascina","corte","masseria","tenuta","struttura","residenza","clinica","farmacia","panetteria","macelleria","birreria","hostaria","foresteria","antica","bella","nuova","vecchia"];
+const NM=["hotel","ristorante","b&b","agriturismo","studio","centro","albergo","bar","pub","caffè","negozio","poliambulatorio","parrucchiere","residence","camping","bistrot","laboratorio","ambulatorio","circolo"];
+function refDi(nome){const n=(nome||"").replace(/\s*\(.*?\)\s*/g," ").replace(/\s+/g," ").trim();if(!n)return "";
+ const w=n.toLowerCase().split(/[\s,]+/);let g="";
+ if(NF.includes(w[0]))g="f";else if(NM.includes(w[0]))g="m";else{const i=w.findIndex(z=>NM.includes(z)||NF.includes(z));if(i>=0)g=NM.includes(w[i])?"m":"f"}
+ if(!g)return "di "+n;
+ const f=w[0],voc=/^[aeiouàèéìòùh]/.test(f);
+ if(voc)return "dell'"+n;
+ if(g=="f")return "della "+n;
+ return /^(s[^aeiouàèéìòù\s]|z|gn|ps|x|y)/.test(f)?"dello "+n:"del "+n}
+function perDi(ref){return ref.replace(/^dell'/,"per l'").replace(/^dello /,"per lo ").replace(/^della /,"per la ").replace(/^del /,"per il ").replace(/^dei /,"per i ").replace(/^degli /,"per gli ").replace(/^delle /,"per le ").replace(/^di /,"per ")}
+function fixDi(r){return r.replace(/^del (?=s[^aeiouàèéìòù\s]|z|gn|ps|x|y)/i,"dello ").replace(/^del (?=[aeiouàèéìòùh])/i,"dell'").replace(/^dello (?=[aeiouàèéìòùh])/i,"dell'")}
+function ctx(x){const P=partiBozza(x),c=catDi(x),ref=fixDi(P.ref||refDi(x.attivita||"")),
+ breve=P.breve||/^(este|monselice)/i.test((x.citta||"").trim())||/este_monselice/.test(x.fonte||"");
+ const ben=(P.nuovo&&P.ben)?P.ben.replace(/\.$/,""):c.ben;
+ return {P,c,ref,perref:perDi(ref),io:breve?"Veronica":"Veronica Basile",ben,loc:c.loc,
+  citta:(x.citta||"").replace(/\s*\(.*?\)\s*/g,"").trim(),prov:(x.provincia||"").trim().toUpperCase()}}
+const FIRMA=io=>`${io} || Kinetix Lab\n333 000 0000`,LAV="Portfolio dimostrativo: www.esempio.it";
+function modelloA(x){const k=ctx(x);return {oggetto:"Un'idea per il sito "+k.ref,testo:`Buongiorno,\n\nsono ${k.io} di KINETIX.LAB, studio che realizza siti web per le attività del territorio.\n\nGuardando il sito ${k.ref} mi è venuta un'idea per il nuovo sito, con ${k.ben}. Ne ho preparato una bozza, che non invio per email: preferisco mostrarvela in una videochiamata di un quarto d'ora o di persona, gratuitamente e senza impegno.\n\n${CALLT}\n\nSe invece non è il momento, nessun problema: una riga di risposta e non vi disturbo più.\n\n${LAV}\n\nCordiali saluti,\n\n${FIRMA(k.io)}`}}
+function modelloB(x){const k=ctx(x);return {oggetto:"Più richieste dal sito "+k.ref,testo:`Buongiorno,\n\nsono ${k.io} di KINETIX.LAB. Aiutiamo ${k.c.target} a ricevere più richieste direttamente dal proprio sito, in modo semplice da gestire.\n\n${k.perref.charAt(0).toUpperCase()+k.perref.slice(1)} ho pensato a un sito ${k.c.vant}.\n\nNe ho preparato una bozza. Non la invio per email: la mostro volentieri in una videochiamata di un quarto d'ora o di persona, senza impegno. Nell'incontro vediamo anche cosa serve davvero ${k.loc} e quale soluzione ha senso, così potete valutare con chiarezza anche i costi.\n\n${CALLT}\n\n${LAV}\n\nCordiali saluti,\n\n${FIRMA(k.io)}`}}
+const PROV_VICINE=["PD","VE","VI","RO","TV"],REGGEN={"Veneto":"del Veneto","Lombardia":"della Lombardia","Emilia-Romagna":"dell'Emilia-Romagna","Friuli-Venezia Giulia":"del Friuli-Venezia Giulia","Trentino-Alto Adige":"del Trentino-Alto Adige","Piemonte":"del Piemonte","Liguria":"della Liguria","Toscana":"della Toscana"};
+function modelloC(x){const k=ctx(x),vic=PROV_VICINE.includes(k.prov),reg=REGGEN[(x.regione||"").trim()]||"del territorio";
+ const dove=k.citta?` ${/^a/i.test(k.citta)?"ad":"a"} ${k.citta}${k.prov?" ("+k.prov+")":""}`:"";const gia=k.citta&&k.ref.toLowerCase().includes(k.citta.toLowerCase());
+ const mostra=vic?"preferisco farvela vedere di persona, se passo dalle vostre parti, oppure in una videochiamata di un quarto d'ora, gratis e senza impegno":"preferisco farvela vedere in una videochiamata di un quarto d'ora, gratis e senza impegno";
+ return {oggetto:`Una proposta ${k.perref}${k.citta&&!gia?" di "+k.citta:""}`,testo:`Buongiorno,\n\nmi chiamo ${k.io}, lavoro con KINETIX.LAB e realizzo siti web per le piccole attività ${reg}.\n\nHo guardato il sito ${k.ref}${dove}, e mi farebbe piacere farvi vedere come potrebbe essere il nuovo sito, con ${k.ben}.\n\nLa bozza è già pronta, ma non la invio per email: ${mostra}.\n\n${CALLT}\n\n${LAV}\n\nA presto,\n\n${FIRMA(k.io)}`}}
+function gen(x,t){if(t=="a")return modelloA(x);if(t=="b")return modelloB(x);if(t=="c")return modelloC(x);
+ const P=partiBozza(x);if(!P.bul.length)return null;if((t=="nuovo")==P.nuovo)return {oggetto:x.oggetto_orig||x.oggetto,testo:P.orig};return t=="nuovo"?modelloNuovo(P):modelloClassico(P)}
+const TMSG=[["a","A · Breve e rispettoso"],["b","B · Beneficio concreto"],["c","C · Personale e locale"],["classico","Classico (con difetti del sito)"],["nuovo","Nuovo (con difetti del sito)"]];
+function tipoPref(){const t=localStorage.getItem("tipo_msg2");return TMSG.some(z=>z[0]==t)?t:"a"}
+// se il testo salvato è stato modificato a mano lo mostro così com'è; altrimenti genero il modello scelto
+function bozzaTipo(x,t){const salvato={oggetto:x.oggetto,testo:x.bozza};
+ const varianti=["a","b","c","classico","nuovo"].map(z=>gen(x,z)).filter(Boolean);
+ const intatto=!x.bozza||x.bozza==x.bozza_orig||varianti.some(v=>v.testo==x.bozza);
+ if(!intatto)return Object.assign({modificato:true},salvato);
+ return gen(x,t)||salvato}
+function cambiaTipo(t){if(!t)return;localStorage.setItem("tipo_msg2",t);const r=gen(SEL,t)||{oggetto:SEL.oggetto,testo:SEL.bozza};$("#eo").value=r.oggetto;$("#et").value=r.testo}
+function scheda(m){const x=SEL,ric=x.richiamo_dovuto,primo=x.stato=="Da contattare"||x.stato=="Da verificare",tipo=ric?"richiamo":"primo";
+ const TM=tipoPref(),BT=ric?null:bozzaTipo(x,TM);
+ const ogg=ric?x.oggetto_richiamo:BT.oggetto,txt=ric?x.bozza_richiamo:BT.testo;
+ const puoEmail=x.ha_email&&(primo||ric);
+ let av="";
+ if(x.verificare)av+=`<div class="av w">⚠️ <b>Verificare che sia attiva prima di inviare.</b> ${esc(x.note)}</div>`;
+ if(x.dup_note)av+=`<div class="av i">Attività presente anche in un altro file (${esc(x.dup_note)}): importata una sola volta, non verrà contattata due volte.</div>`;
+ if(!primo&&!ric)av+=`<div class="av ok">Stato: <b>${esc(x.stato)}</b>${x.data_contatto?` · contattata il ${fd(x.data_contatto)} (${esc(x.canale_contatto||"")})`:""}${x.stato=="Inviata"?` · richiamo dal ${fd(x.richiamo_dal)}`:""}${x.data_richiamo?` · richiamo inviato il ${fd(x.data_richiamo)}`:""}</div>`;
+ if(x.stato=="Ha risposto"&&x.ha_email)av+=`<div class="av ok row">💬 <b>Ha risposto.</b> <span class="tag">Scrivigli dalla scheda «Scrivi email», nella stessa conversazione e con gli allegati che vuoi.</span><span class="sp"></span><button class="b p" onclick="rispondiLead(${x.id})">↩ Rispondi a ${esc(x.attivita)}</button></div>`;
+ if(ric)av+=`<div class="av i">📨 <b>Richiamo</b>: contattata il ${fd(x.data_contatto)}, nessuna risposta. ${x.message_id?"Partirà come risposta nello stesso thread.":"La prima email non è stata inviata dall'app, quindi non ho il suo Message-ID: il richiamo parte con «Re:» ma come nuovo messaggio."}</div>`;
+ const emailBox=x.ha_email?`<div class="card"><h3>${ric?"Email di richiamo":"Email"}</h3>
+  ${!ric&&primo?`<label class="f">Tipo di messaggio</label><select id="etm" onchange="cambiaTipo(this.value)">${BT.modificato?`<option value="" selected>Testo modificato a mano</option>`:""}${TMSG.map(z=>`<option value="${z[0]}" ${!BT.modificato&&TM==z[0]?"selected":""}>${z[1]}</option>`).join("")}</select>`:""}
+  <label class="f">Destinatario</label><input class="w" id="ea" value="${esc(x.email)}"><label class="f">Oggetto</label><input class="w" id="eo" value="${esc(ogg)}">
+  <label class="f">Testo</label><textarea id="et">${esc(txt)}</textarea>
+  <div class="row" style="margin-top:10px">${puoEmail?`<button class="b p" onclick="invia(false)">Invia</button><button class="b p" onclick="invia(true)">Invia e passa alla prossima →</button>`:`<span class="tag">Già inviata: niente pulsante Invia.</span>`}
+  <button class="b" onclick="salvaBozza('${tipo}')">Salva bozza</button><button class="b" onclick="rispondiLead(${x.id})">✉️ Scrivi un'email</button>${ST.imp.email_prova?`<button class="b" onclick="prova()">Mandami una prova</button>`:""}<span class="sp"></span><span class="tag">${ST.test?"Modalità test: l'invio viene solo registrato":"Parte davvero da "+esc(ST.da)}</span></div></div>`:"";
+ const t=x.tel,waBox=(!x.ha_email||(t&&t.mobile))?(x.da_reperire?`<div class="card av r"><b>Nessun contatto pubblico.</b> Non ci sono pulsanti di invio: prima va trovato un recapito.</div>`:`<div class="card"><h3>${ric?"Richiamo su WhatsApp / telefono":"WhatsApp / telefono"}</h3>
+  <div class="row"><b style="font-size:18px">${esc(x.telefono)}</b>${t.mobile?'<span class="st" data-s="Inviata">cellulare</span>':'<span class="st" data-s="Da verificare">Probabile fisso: chiamare</span>'}</div>
+  ${t.mobile?"":`<div class="av w">☎️ <b>Probabile fisso: chiamare.</b> Il numero non inizia con 3, quindi probabilmente non ha WhatsApp. Usa il testo qui sotto come traccia per la telefonata.</div>`}
+  <label class="f">${t.mobile?"Testo WhatsApp":"Traccia per la telefonata"}</label><textarea id="wt" style="min-height:200px">${esc(x.testo_wa)}</textarea>
+  <div class="row" style="margin-top:10px">${t.mobile?waBtns(t.numero):""}${primo||ric?`<a href="tel:+39${t.numero}"><button class="b">📞 Chiama +39 ${t.numero}</button></a>
+   <input type="date" id="wd" value="${oggi()}"><button class="b p" onclick="segnaWA('whatsapp')">Segna come inviato su WhatsApp</button><button class="b" onclick="segnaWA('telefono')">Segna come chiamato</button>`:'<span class="tag">Già contattata.</span>'}
+   <button class="b" onclick="salvaWA()">Salva testo</button></div></div>`):"";
+ m.innerHTML=`<div class="row"><button class="b" onclick="back()">← Indietro</button><h2 style="margin:0 8px">${esc(x.attivita)}</h2><span class="st" data-s="${esc(x.stato)}">${esc(x.stato)}</span></div>${av}
+ <div class="grid"><div>${emailBox}${waBox}</div><div><div class="card"><dl><dt>Sito attuale</dt><dd>${x.sito?`<a href="${esc(x.sito)}" target="_blank" rel="noopener">${esc(x.sito)} ↗</a>`:"—"}</dd>
+ <dt>Settore</dt><dd>${esc(x.settore)}</dd><dt>Città</dt><dd>${esc(x.citta)} (${esc(x.provincia)}) · ${esc(x.regione)}</dd><dt>Priorità</dt><dd>${esc(x.priorita)}</dd>
+ <dt>Telefono</dt><dd>${esc(x.telefono)||"—"}</dd><dt>Problemi riscontrati</dt><dd>${esc(x.problemi)}</dd><dt>Proposta</dt><dd>${esc(x.proposta)}</dd><dt>Note</dt><dd>${esc(x.note)}</dd><dt>Fonte</dt><dd>${esc(x.fonte)}</dd></dl></div>
+ <div class="card"><h3>Cambia stato</h3><div class="row">${ST.stati.map(s=>`<button class="b" ${s==x.stato?"disabled":""} onclick="stato('${s}')">${s}</button>`).join("")}</div></div>
+ <div class="card"><h3>Storico</h3>${x.storico.length?x.storico.map(h=>{const al=allegatiDi(h);return `<div class="tag" style="margin-bottom:4px">${esc(h.quando)} · ${esc(TIPI[h.tipo]||h.tipo)} · ${esc(h.canale)}${h.modo=="test"?" · simulato":""}${h.tipo=="libera"?`<br>«${esc(h.oggetto)}»${al.length?` · 📎 ${al.map(f=>esc(f.nome)).join(", ")}`:""}`:""}</div>`}).join(""):'<span class="tag">Nessun invio dall\'app.</span>'}</div></div></div>`}
+function ask(html,okTxt){return new Promise(res=>{$("#dlgc").innerHTML=html+`<div class="row" style="margin-top:16px;justify-content:flex-end"><button class="b" id="dn">Annulla</button><button class="b p" id="dy">${okTxt}</button></div>`;
+ const d=$("#dlg");d.showModal();$("#dn").onclick=()=>{d.close();res(false)};$("#dy").onclick=()=>{d.close();res(true)};d.oncancel=()=>res(false)})}
+async function invia(next){const x=SEL,tipo=x.richiamo_dovuto?"richiamo":"primo",a=$("#ea").value.trim(),o=$("#eo").value.trim(),t=$("#et").value;
+ const ok=await ask(`<h3>${ST.test?"Simulo l'invio?":"Invio questa email?"}</h3><p><b>A:</b> ${esc(a)}<br><b>Da:</b> ${esc(ST.da)}<br><b>Oggetto:</b> ${esc(o)}</p>${x.verificare?'<div class="av w">⚠️ Hai verificato che l\'attività sia ancora attiva?</div>':""}${ST.test?'<div class="av w">Modalità test: l\'email non esce, viene solo registrata.</div>':""}<p class="tag">Parte solo questa email, a questo destinatario.</p>`,ST.test?"Sì, simula":"Sì, invia");
+ if(!ok)return;try{const r=await api("/api/invia",{id:x.id,tipo,a,oggetto:o,testo:t,conferma:true});toast(r.test?"Invio simulato e registrato (modalità test)":"Email inviata ✓");
+  await load();if(next){const c=(tipo=="richiamo"?codaRich():codaEmail()).filter(y=>y.id!=x.id);if(c[0])return apri(c[0].id);toast("Coda finita 🎉")}apri(x.id)}catch(e){toast(e.message,6000)}}
+async function prova(){const o=$("#eo").value,t=$("#et").value;if(!await ask(`<h3>Email di prova</h3><p>Mando questa email solo a <b>${esc(ST.imp.email_prova)}</b>. Lo stato dell'attività non cambia.</p>`,"Manda la prova"))return;
+ try{const r=await api("/api/invia",{id:0,tipo:"prova",a:ST.imp.email_prova,oggetto:"[PROVA] "+o,testo:t,conferma:true});toast(r.test?"Prova simulata (modalità test)":"Prova inviata a "+ST.imp.email_prova)}catch(e){toast(e.message,6000)}}
+async function salvaBozza(tipo){const b={id:SEL.id,email:$("#ea").value};b[tipo=="richiamo"?"oggetto_richiamo":"oggetto"]=$("#eo").value;b[tipo=="richiamo"?"bozza_richiamo":"bozza"]=$("#et").value;await api("/api/lead",b);toast("Bozza salvata");await load();apri(SEL.id)}
+async function salvaWA(){await api("/api/lead",{id:SEL.id,testo_wa:$("#wt").value});toast("Testo salvato");await load();apri(SEL.id)}
+function isIOS(){return /iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform=="MacIntel"&&navigator.maxTouchPoints>1)}
+function waModo(){return isIOS()?"app":(localStorage.getItem("wa_modo")||"app")}
+function waNum(n){n=String(n).replace(/\D/g,"");if(n.startsWith("0039"))n=n.slice(4);else if(n.startsWith("39")&&n.length>10)n=n.slice(2);return "39"+n}
+function waLink(modo){const n=waNum(SEL.tel.numero),tx=encodeURIComponent($("#wt").value);return modo=="web"?"https://web.whatsapp.com/send?phone="+n+"&text="+tx:"https://wa.me/"+n+"?text="+tx}
+function waBtns(num){const a=`<button class="b ${waModo()=="app"?"g":""}" id="waApp" onclick="apriWA()">Apri in WhatsApp (+39 ${num})</button>`,w=`<button class="b ${waModo()=="web"?"g":""}" id="waWeb" onclick="apriWAWeb()">WhatsApp Web (+39 ${num})</button>`;return waModo()=="web"?w+a:a+w}
+function apriWA(){window.open(waLink("app"),"_blank","noopener")}
+function apriWAWeb(){window.open(waLink("web"),"_blank","noopener")}
+function setWaModo(v){localStorage.setItem("wa_modo",v);toast("Preferenza WhatsApp salvata")}
+async function segnaWA(can){const x=SEL;if(!await ask(`<h3>${can=="whatsapp"?"Segnare come inviato su WhatsApp?":"Segnare come chiamato?"}</h3><p>${esc(x.attivita)} · data ${fd($("#wd").value)}. Il richiamo comparirà dopo ${ST.imp.giorni_richiamo} giorni.</p>`,"Sì, segna"))return;
+ await api("/api/segna-wa",{id:x.id,tipo:x.richiamo_dovuto?"richiamo":"primo",canale:can,data:$("#wd").value,testo:$("#wt").value});toast("Segnato");await load();apri(x.id)}
+async function stato(s){await api("/api/lead",{id:SEL.id,stato:s});await load();apri(SEL.id)}
+
+let L=[],ST={},VIEW="coda",SEL=null,F={q:"",regione:"",provincia:"",priorita:"",stato:"",canale:""},COMP=null;
+const ESEMPIO=["Agriturismo Valle Aperta","Osteria del Vicolo","Hotel Belvedere","Studio Aurora","Pasticceria Dolci Idee","B&B Le Querce","Centro Movimento","Negozio Casa Forma"];
+const CITTA=[["Este","PD"],["Monselice","PD"],["Padova","PD"],["Vicenza","VI"],["Venezia","VE"],["Rovigo","RO"],["Treviso","TV"],["Verona","VR"]];
+const SETT=["Agriturismo","Ristorante","Hotel","Studio professionale","Pasticceria","B&B","Palestra","Negozio"];
+const STATI=["Da contattare","Inviata","Ha risposto","Richiamo inviato","Non interessato"];
+const BOZZA="Buongiorno,\n\nsono Veronica Basile di KINETIX.LAB, studio che realizza siti web per le attività del territorio.\n\nGuardando il sito mi è venuta un'idea per il nuovo sito, con foto curate e la richiesta di disponibilità dal telefono. Ne ho preparato una bozza, che non invio per email: preferisco mostrarvela in una videochiamata di un quarto d'ora o di persona, gratuitamente e senza impegno.\n\nBasta rispondere a questa email indicando la vostra disponibilità. Se preferite, possiamo anche sentirci prima con una breve telefonata.\n\nCordiali saluti,\n\nVeronica Basile || Kinetix Lab\n333 000 0000";
+L=Array.from({length:42},(_,i)=>{const k=i%8,st=STATI[i%5];return{id:i+1,attivita:ESEMPIO[k]+(i>7?" "+(Math.floor(i/8)+1):""),settore:SETT[k],citta:CITTA[k][0],provincia:CITTA[k][1],regione:"Veneto",priorita:["Alta","Media","Bassa"][i%3],email:(i%6==0?"":`contatto${i+1}@esempio.it`),ha_email:i%6!=0,telefono:"333 000 0000",tel:{mobile:true,numero:"3330000000"},stato:st,data_contatto:"2026-10-26",richiamo_dal:st=="Inviata"?"2026-11-09":"",richiamo_dovuto:st=="Inviata"&&i%2==0,sito:"https://esempio.it",problemi:"Dati dimostrativi",proposta:"Nuovo sito adatto al telefono",note:"Esempio per il portfolio",fonte:"Lista dimostrativa",oggetto:"Un'idea per il sito",bozza:BOZZA,bozza_orig:BOZZA,oggetto_orig:"Un'idea per il sito",testo_wa:"Buongiorno! Vi scrivo per mostrarvi un'idea per il nuovo sito. Possiamo sentirci con una breve telefonata?",storico:[]}});
+ST={test:false,da:"mittente@esempio.it",smtp:"smtp.esempio.it",utente:"esempio",imap:"imap.esempio.it",password:true,stati:STATI,oggi:12,limite:30,pausa:8,limite_giorno:30,pausa_sec:8,simulati:0,imp:{giorni_richiamo:7,firma:"Veronica Basile || Kinetix Lab\n333 000 0000",nome_mittente:"Kinetix Lab",email_prova:"prova@esempio.it",forza_test:"0"}};
+function nuovaComp(){return {lead_id:0,a:"",cc:"",oggetto:"",testo:"",rif:"",files:[]}}
+const bar=document.createElement('div');bar.style='position:fixed;bottom:0;left:0;right:0;background:#15151C;color:#fff;padding:9px;text-align:center;font:600 13px system-ui;z-index:20';bar.textContent='DIMOSTRAZIONE · Tutti i nominativi e i contatti mostrati sono dati di esempio';document.body.appendChild(bar);
+try {load(); console.log('DEMO',m.innerHTML)} catch(e){document.querySelector('#m').innerText=e.stack;console.error(e)}
+</script></body></html>
